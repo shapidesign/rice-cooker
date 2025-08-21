@@ -323,7 +323,7 @@ export default function CookingPage() {
     <div className="min-h-screen bg-[#fcfbf4] font-pixel select-none">
       {/* Stage: Select Rice */}
       {stage === 'select_rice' && (
-        <div className="relative w-full h-screen max-w-[375px] mx-auto">
+        <div className="relative w-full h-screen max-w-[100vw] mx-auto">
           {/* Background Pattern - Circles 48px */}
           <div className="absolute inset-0 opacity-10">
             <div className="w-full h-full" style={{
@@ -347,11 +347,12 @@ export default function CookingPage() {
                   src={isChooseBackPressed ? backTrueSvg : backFalseSvg} 
                   alt="Back" 
                   className="w-full h-full cursor-pointer" 
+                  style={{ imageRendering: 'crisp-edges' }}
                 />
               </div>
             </Link>
             <div className="w-12 h-12">
-              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full" />
+              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full object-contain" />
             </div>
           </div>
 
@@ -361,15 +362,16 @@ export default function CookingPage() {
           </div>
 
           {/* Rice Options Grid - Frame 3 */}
-          <div className="absolute top-72 left-10 right-10">
-            <div className="grid grid-cols-2 gap-3" style={{ width: '296px', height: '246px' }}>
+          <div className="absolute top-72 left-4 right-4">
+            <div className="grid grid-cols-2 gap-2" style={{ width: '100%', height: '200px' }}>
               {riceOptions.map((option, index) => (
                 <div key={option.name} className="flex items-center justify-center p-1">
                   <img 
                     src={option.svg} 
                     alt={option.name}
                     onClick={() => handleSelectRice(option)}
-                    className="w-[140.57px] h-[58.17px] cursor-pointer hover:opacity-80 transition-opacity touch-manipulation active:scale-95"
+                    className="w-full h-full max-w-[140px] max-h-[58px] cursor-pointer hover:opacity-80 transition-opacity touch-manipulation active:scale-95"
+                    style={{ imageRendering: 'crisp-edges' }}
                     onTouchStart={(e) => {
                       e.currentTarget.style.transform = 'scale(0.95)';
                     }}
@@ -386,7 +388,7 @@ export default function CookingPage() {
 
       {/* Stage: Set Amount */}
       {stage === 'set_amount' && selectedRice && (
-        <div className="relative w-full h-screen max-w-[375px] mx-auto">
+        <div className="relative w-full h-screen max-w-[100vw] mx-auto">
           {/* Background Pattern - Circles 48px */}
           <div className="absolute inset-0 opacity-10">
             <div className="w-full h-full" style={{
@@ -418,7 +420,7 @@ export default function CookingPage() {
           </div>
 
           {/* Main Content - Frame 6 */}
-          <div className="absolute top-32 left-10 right-10">
+          <div className="absolute top-32 left-4 right-4">
             <div className="flex flex-col space-y-8">
               {/* Rice Details - Frame 4 */}
               <div className="w-[205px] h-[84px] flex flex-col space-y-1 mx-auto">
@@ -453,6 +455,7 @@ export default function CookingPage() {
                         src={isMinusPressed ? minusTrueSvg : minusFalseSvg} 
                         alt="-" 
                         className="w-full h-full" 
+                        style={{ imageRendering: 'crisp-edges' }}
                       />
                     </div>
                   </div>
@@ -490,6 +493,7 @@ export default function CookingPage() {
                         src={isPlusPressed ? plusTrueSvg : plusFalseSvg} 
                         alt="+" 
                         className="w-full h-full" 
+                        style={{ imageRendering: 'crisp-edges' }}
                       />
                     </div>
                   </div>
@@ -535,11 +539,12 @@ export default function CookingPage() {
                   }}
                   onClick={handleStartCooking}
                 >
-                  <img 
-                    src={isButtonPressed ? cookTrueSvg : cookFalseSvg} 
-                    alt="Start Cooking" 
-                    className="w-full h-full" 
-                  />
+                                  <img 
+                  src={isButtonPressed ? cookTrueSvg : cookFalseSvg} 
+                  alt="Start Cooking" 
+                  className="w-full h-full" 
+                  style={{ imageRendering: 'crisp-edges' }}
+                />
                 </div>
               </div>
             </div>
@@ -549,7 +554,7 @@ export default function CookingPage() {
       
       {/* Stage: Timer */}
       {stage === 'timer' && selectedRice && (
-        <div className="relative w-full h-screen max-w-[375px] mx-auto">
+        <div className="relative w-full h-screen max-w-[100vw] mx-auto">
           {/* Background Pattern - Circles 48px */}
           <div className="absolute inset-0 opacity-10">
             <div className="w-full h-full" style={{
@@ -576,12 +581,12 @@ export default function CookingPage() {
               />
             </div>
             <div className="w-12 h-12">
-              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full" />
+              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full object-contain" />
             </div>
           </div>
 
           {/* Main Content - Frame 11 */}
-          <div className="absolute top-32 left-10 right-10">
+          <div className="absolute top-32 left-4 right-4">
             <div className="flex flex-col space-y-14">
               {/* Title - Frame 4 */}
               <div className="w-[267px] h-[96px] flex flex-col space-y-1 mx-auto">

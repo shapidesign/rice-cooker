@@ -8,7 +8,7 @@ export default function Home() {
   const [isButtonPressed, setIsButtonPressed] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#fcfbf4] relative overflow-hidden font-pixel">
+    <div className="h-screen bg-[#fcfbf4] relative overflow-hidden font-pixel">
       {/* Background Pattern - Circles 48px */}
       <div className="absolute inset-0 opacity-10">
         <div className="w-full h-full" style={{
@@ -51,6 +51,7 @@ export default function Home() {
                   src={isButtonPressed ? cookTrueSvg : cookFalseSvg} 
                   alt="Let's Cook!" 
                   className="w-full h-full cursor-pointer"
+                  style={{ imageRendering: 'crisp-edges' }}
                 />
               </div>
             </Link>
