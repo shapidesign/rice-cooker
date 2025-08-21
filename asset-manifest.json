@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/rice-cooker/static/css/main.bb33be07.css",
-    "main.js": "/rice-cooker/static/js/main.af5495b4.js",
+    "main.js": "/rice-cooker/static/js/main.b66c61f9.js",
     "static/media/tip.svg": "/rice-cooker/static/media/tip.1c4b5e77924c3b3556ba3b00fdbb35e6.svg",
     "static/media/basmati.svg": "/rice-cooker/static/media/basmati.7bda1b40dbc9c2c942e8c67e09c7868d.svg",
     "static/media/jasmine.svg": "/rice-cooker/static/media/jasmine.f09a7e17aaacdb8fae77cae8df6f082c.svg",
@@ -24,10 +24,10 @@
     "index.html": "/rice-cooker/index.html",
     "static/media/8px.svg": "/rice-cooker/static/media/8px.c11171dd1e1f094d0afeeaabdcfa623c.svg",
     "main.bb33be07.css.map": "/rice-cooker/static/css/main.bb33be07.css.map",
-    "main.af5495b4.js.map": "/rice-cooker/static/js/main.af5495b4.js.map"
+    "main.b66c61f9.js.map": "/rice-cooker/static/js/main.b66c61f9.js.map"
   },
   "entrypoints": [
     "static/css/main.bb33be07.css",
-    "static/js/main.af5495b4.js"
+    "static/js/main.b66c61f9.js"
   ]
 }
