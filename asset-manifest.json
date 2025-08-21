@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/rice-cooker/static/css/main.bb33be07.css",
+    "main.js": "/rice-cooker/static/js/main.af5495b4.js",
+    "static/media/tip.svg": "/rice-cooker/static/media/tip.1c4b5e77924c3b3556ba3b00fdbb35e6.svg",
+    "static/media/basmati.svg": "/rice-cooker/static/media/basmati.7bda1b40dbc9c2c942e8c67e09c7868d.svg",
+    "static/media/jasmine.svg": "/rice-cooker/static/media/jasmine.f09a7e17aaacdb8fae77cae8df6f082c.svg",
+    "static/media/arborio.svg": "/rice-cooker/static/media/arborio.e854c311a406ad7187718a9867a79fb3.svg",
+    "static/media/sushi.svg": "/rice-cooker/static/media/sushi.252d84eece0af4bc53962d3209224bee.svg",
+    "static/media/short.svg": "/rice-cooker/static/media/short.07d67029de61248df0ce46439797d09a.svg",
+    "static/media/whole.svg": "/rice-cooker/static/media/whole.883dd26836a1a6270f314fd8eb5afc6c.svg",
+    "static/media/cook=true.svg": "/rice-cooker/static/media/cook=true.e7354ed0c6b696126233a805a313fdfc.svg",
+    "static/media/cook=false.svg": "/rice-cooker/static/media/cook=false.87e761a5df30f0b488c2309ede0eef06.svg",
+    "static/media/brown.svg": "/rice-cooker/static/media/brown.73afdb0c894c5026dd96208e06ad0645.svg",
+    "static/media/play=false.svg": "/rice-cooker/static/media/play=false.87ea84b2567cd23ca79ddd8a29f0aa93.svg",
+    "static/media/back=false.svg": "/rice-cooker/static/media/back=false.fe4fb729dda87be1bbdd613f9b1896b7.svg",
+    "static/media/back=true.svg": "/rice-cooker/static/media/back=true.212416ea31713eabc514aea3ded4f4e7.svg",
+    "static/media/pause=false.svg": "/rice-cooker/static/media/pause=false.3ce07271d5de369f180e2be76f163c52.svg",
+    "static/media/+=false.svg": "/rice-cooker/static/media/+=false.f3dbdb5b000966a9f39aff8a95fb8ce8.svg",
+    "static/media/ricey-logo2.svg": "/rice-cooker/static/media/ricey-logo2.f61d6e7e28910469b4d53897bfc38894.svg",
+    "static/media/+=true.svg": "/rice-cooker/static/media/+=true.5d79a30a18a745a593605de5894ed12b.svg",
+    "static/media/-=false.svg": "/rice-cooker/static/media/-=false.51b0a9f40d3b51f9c16e19a155301027.svg",
+    "static/media/-=true.svg": "/rice-cooker/static/media/-=true.44e518d1ed9b92b33196babc87fa2076.svg",
+    "index.html": "/rice-cooker/index.html",
+    "static/media/8px.svg": "/rice-cooker/static/media/8px.c11171dd1e1f094d0afeeaabdcfa623c.svg",
+    "main.bb33be07.css.map": "/rice-cooker/static/css/main.bb33be07.css.map",
+    "main.af5495b4.js.map": "/rice-cooker/static/js/main.af5495b4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bb33be07.css",
+    "static/js/main.af5495b4.js"
+  ]
+}
