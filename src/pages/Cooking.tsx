@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { createPageUrl } from "../utils";
-import { RiceType, CookingSession } from "../entities/all";
-import PressableButton from "../components/PressableButton";
-import RiceLogo from "../components/RiceLogo";
-import chooseSvg from "../assets/choose.svg";
 import backFalseSvg from "../assets/back=false.svg";
 import backTrueSvg from "../assets/back=true.svg";
 import riceyLogoSvg from "../assets/ricey-logo2.svg";
@@ -55,7 +50,6 @@ interface RiceOption {
 export default function CookingPage() {
   const [stage, setStage] = useState('select_rice');
   const [selectedRice, setSelectedRice] = useState<RiceOption | null>(null);
-  const [riceDetails, setRiceDetails] = useState<RiceType | null>(null);
   const [cups, setCups] = useState(1.0);
   
   const [totalTime, setTotalTime] = useState(0);
@@ -282,30 +276,18 @@ export default function CookingPage() {
     };
   }, [isRunning, timeRemaining, stage]);
 
-  const handleSelectRice = async (riceOption: RiceOption) => {
+  const handleSelectRice = (riceOption: RiceOption) => {
     setSelectedRice(riceOption);
-    const types = await RiceType.list();
-    const details = types.find(r => r.category === riceOption.category && r.variety === riceOption.variety);
-    setRiceDetails(details || null);
     setStage('set_amount');
   };
   
-  const handleStartCooking = async () => {
+  const handleStartCooking = () => {
     if (!selectedRice) return;
     
     const timeInSeconds = selectedRice.time * 60;
     setTotalTime(timeInSeconds);
     setTimeRemaining(timeInSeconds);
     setIsComplete(false);
-    
-    await CookingSession.create({
-      rice_type: `${selectedRice.variety} ${selectedRice.category}`,
-      rice_amount: Math.round(cups * 185),
-      water_amount: Math.round(cups * (riceDetails?.water_ratio || 1.5) * 240),
-      cooking_time: selectedRice.time,
-      status: 'active'
-    });
-
     setStage('timer');
     setIsRunning(true);
   };
@@ -333,8 +315,8 @@ export default function CookingPage() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const waterCups = Math.round(cups * (selectedRice?.waterRatio || 1.5) * 10) / 10;
-  const waterMl = Math.round(cups * (selectedRice?.waterRatio || 1.5) * 240);
+  const waterCups = selectedRice ? Math.round(cups * selectedRice.waterRatio * 10) / 10 : 0;
+  const waterMl = selectedRice ? Math.round(cups * selectedRice.waterRatio * 240) : 0;
   const progress = totalTime > 0 ? ((totalTime - timeRemaining) / totalTime) * 100 : 0;
 
   return (
@@ -352,7 +334,7 @@ export default function CookingPage() {
 
           {/* Header - Frame 12 */}
           <div className="absolute top-8 left-8 right-8 flex justify-between items-center">
-            <Link to={createPageUrl("Home")}>
+            <Link to="/">
               <div 
                 className="w-12 h-12 relative"
                 onMouseDown={() => setIsChooseBackPressed(true)}

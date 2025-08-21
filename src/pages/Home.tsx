@@ -1,32 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { createPageUrl } from "../utils";
-import { User, UserProgress } from "../entities/all";
-import PressableButton from "../components/PressableButton";
 import riceyLogo from "../assets/ricey-logo2.svg";
-import homeSvg from "../assets/home.svg";
 import cookFalseSvg from "../assets/cook=false.svg";
 import cookTrueSvg from "../assets/cook=true.svg";
 
 export default function Home() {
-  const [totalCooks, setTotalCooks] = useState(0);
   const [isButtonPressed, setIsButtonPressed] = useState(false);
-
-  useEffect(() => {
-    const fetchProgress = async () => {
-      try {
-        const user = await User.me();
-        const progressRecords = await UserProgress.filter({ user_email: user.email });
-        if (progressRecords.length > 0) {
-          const progress = progressRecords[0];
-          setTotalCooks(progress.completed_cooks || 0);
-        }
-      } catch (error) {
-        console.log("User not logged in");
-      }
-    };
-    fetchProgress();
-  }, []);
 
   return (
     <div className="min-h-screen bg-[#fcfbf4] relative overflow-hidden font-pixel">
@@ -59,7 +38,7 @@ export default function Home() {
 
           {/* Main Action Button - Sharp Button */}
           <div className="w-[207px] h-[50.63px]">
-            <Link to={createPageUrl("Cooking")}>
+            <Link to="/cooking">
               <div 
                 className="w-[145px] h-[35px] mx-auto relative"
                 onMouseDown={() => setIsButtonPressed(true)}
