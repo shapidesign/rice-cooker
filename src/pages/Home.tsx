@@ -11,6 +11,15 @@ export default function Home() {
     <div className="h-screen bg-[#fcfbf4] relative overflow-hidden font-pixel" style={{
       imageRendering: 'crisp-edges'
     }}>
+      <style>
+        {`
+          img {
+            image-rendering: crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: pixelated;
+          }
+        `}
+      </style>
       {/* Background Pattern - Circles 48px */}
       <div className="absolute inset-0 opacity-10">
         <div className="w-full h-full" style={{
@@ -42,7 +51,7 @@ export default function Home() {
           <div className="w-[207px] h-[50.63px]">
             <Link to="/cooking">
               <div 
-                className="w-[145px] h-[35px] mx-auto relative"
+                className="w-[163px] h-[42px] mx-auto relative"
                 onMouseDown={() => setIsButtonPressed(true)}
                 onMouseUp={() => setIsButtonPressed(false)}
                 onMouseLeave={() => setIsButtonPressed(false)}
@@ -53,7 +62,9 @@ export default function Home() {
                   src={isButtonPressed ? cookTrueSvg : cookFalseSvg} 
                   alt="Let's Cook!" 
                   className="w-full h-full cursor-pointer"
-                  style={{ imageRendering: 'crisp-edges' }}
+                  style={{ 
+                    imageRendering: 'crisp-edges'
+                  }}
                 />
               </div>
             </Link>

@@ -323,6 +323,15 @@ export default function CookingPage() {
     <div className="min-h-screen bg-[#fcfbf4] font-pixel select-none" style={{
       imageRendering: 'crisp-edges'
     }}>
+      <style>
+        {`
+          img {
+            image-rendering: crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: pixelated;
+          }
+        `}
+      </style>
       {/* Stage: Select Rice */}
       {stage === 'select_rice' && (
         <div className="relative w-full h-screen max-w-[100vw] mx-auto">
@@ -541,12 +550,14 @@ export default function CookingPage() {
                   }}
                   onClick={handleStartCooking}
                 >
-                                  <img 
-                  src={isButtonPressed ? cookTrueSvg : cookFalseSvg} 
-                  alt="Start Cooking" 
-                  className="w-full h-full" 
-                  style={{ imageRendering: 'crisp-edges' }}
-                />
+                  <img 
+                    src={isButtonPressed ? cookTrueSvg : cookFalseSvg} 
+                    alt="Start Cooking" 
+                    className="w-full h-full" 
+                    style={{ 
+                      imageRendering: 'crisp-edges'
+                    }}
+                  />
                 </div>
               </div>
             </div>
