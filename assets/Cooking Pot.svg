@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none" viewBox="0 0 64 64">
+  <path fill="url(#a)" d="M0 0h64v64H0z"/>
+  <defs>
+    <pattern id="a" width="1" height="1" patternContentUnits="objectBoundingBox">
+      <use href="#b" transform="scale(.01563)"/>
+    </pattern>
+    <image id="b" width="64" height="64" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAjklEQVR4nO3VsQrDMBBEwf3/n970hhRGUvA582Bbn5jGiSRJknS63tzrKoAA6CSAvmwA7taXDcBq3f3BzR1/XwEEQAEEQAEEQPO8jv/3Owxg+b0FEAD9Z4Br0wDmHVgMQAAEQAAEQAAEQCYeWAxAAARAAARAAARAJh5YDEAA5KcAffgA7K7DBkCSJEnK1z4Nh81PD7h3hAAAAABJRU5ErkJggg==" preserveAspectRatio="none"/>
+  </defs>
+</svg>

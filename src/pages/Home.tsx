@@ -1,0 +1,87 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "../utils";
+import { User, UserProgress } from "../entities/all";
+import PressableButton from "../components/PressableButton";
+import riceyLogo from "../assets/ricey-logo2.svg";
+import homeSvg from "../assets/home.svg";
+import cookFalseSvg from "../assets/cook=false.svg";
+import cookTrueSvg from "../assets/cook=true.svg";
+
+export default function Home() {
+  const [totalCooks, setTotalCooks] = useState(0);
+  const [isButtonPressed, setIsButtonPressed] = useState(false);
+
+  useEffect(() => {
+    const fetchProgress = async () => {
+      try {
+        const user = await User.me();
+        const progressRecords = await UserProgress.filter({ user_email: user.email });
+        if (progressRecords.length > 0) {
+          const progress = progressRecords[0];
+          setTotalCooks(progress.completed_cooks || 0);
+        }
+      } catch (error) {
+        console.log("User not logged in");
+      }
+    };
+    fetchProgress();
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-[#fcfbf4] relative overflow-hidden font-pixel">
+      {/* Background Pattern - Circles 48px */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="w-full h-full" style={{
+          backgroundImage: `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAe1JREFUaAXtmaFOxEAQhg9QCAQYQJOQ4PEnQfAAvAASBe+A4gwvwROARoMkIZCgcJCABAf/17SEkmmvTefolswkf8XudPvP39vtzNxoZNupho/tqV5Gj/TUifXkeWtQY1vCY8VcH8NwgVMj25TXi7DSyPtvnJZzTnCrtUXNEu1+rVc/k3D6FOBoGtHhcG7OpjEINwQuvQk2x6XAzyZF5UWrZHCEK5wnc7qww4nqSngThmDsibGwMQSywTEUCAVCgVAgFPi/CpBKzMJIxX9+6otU5dX7YQveC2o9kq0LYU34EJaEHeFEeBJuhWSNdJeUvJTu5mwZ400km66jPAQrC458jgDxTcoal3xizZtwK1mrivq26rBhb4SHBjficy1wT2fzCoDC4q4FG3xdihGvAFpw93X1CoDN27hvk/tyTzLW2yb2VICjkSNy2jGK8skdo4UQZt8mn+T4JEDXD9ksciHUPRM4VouTif2xLRwKyQcgjqPffRt+NkPqOxFDWCgQCoQCoUAoEApMVYC2Cn9orwrPwrswBKPvtCvsUdCsCwfCvZBsmituhcERrnCG+7cl37cRUzJZUnK4mkYxgkOKbwJOZLV1BZOmnfs22YrdL5Ulq1XUu/ZtunPPVhjravadrAC4w61vkz2++6Wy7/QFbrhQvjGdAq4AAAAASUVORK5CYII=")`,
+          backgroundSize: '48px 48px'
+        }}></div>
+      </div>
+
+      {/* Top Logo - Frame 12 */}
+      <div className="absolute top-8 right-8 z-10">
+        <img src={riceyLogo} alt="Ricey Logo" className="w-7 h-11" />
+      </div>
+
+      {/* Main Content - Frame 2 */}
+      <div className="relative z-20 flex flex-col items-center justify-center min-h-screen">
+        <div className="w-[207px] flex flex-col items-center space-y-[63px]">
+          {/* Header */}
+          <header className="text-center w-[197px] h-[160px] flex flex-col justify-center">
+            <div className="text-6xl font-bold text-black mb-2 leading-none">ricey</div>
+            <div className="text-lg text-black font-normal">your rice guide</div>
+          </header>
+
+          {/* Main Logo - ricey-logo */}
+          <div className="w-[153px] h-[243px] flex items-center justify-center">
+            <img src={riceyLogo} alt="Ricey Logo" className="w-full h-full" />
+          </div>
+
+          {/* Main Action Button - Sharp Button */}
+          <div className="w-[207px] h-[50.63px]">
+            <Link to={createPageUrl("Cooking")}>
+              <div 
+                className="w-[145px] h-[35px] mx-auto relative"
+                onMouseDown={() => setIsButtonPressed(true)}
+                onMouseUp={() => setIsButtonPressed(false)}
+                onMouseLeave={() => setIsButtonPressed(false)}
+                onTouchStart={() => setIsButtonPressed(true)}
+                onTouchEnd={() => setIsButtonPressed(false)}
+              >
+                <img 
+                  src={isButtonPressed ? cookTrueSvg : cookFalseSvg} 
+                  alt="Let's Cook!" 
+                  className="w-full h-full cursor-pointer"
+                />
+              </div>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+  );
+}

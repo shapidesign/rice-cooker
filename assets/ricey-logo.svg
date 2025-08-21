@@ -1,0 +1,21 @@
+<svg width="150" height="236" viewBox="0 0 150 236" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<path d="M1.26601 143.475V26.6336H27.3982V1H117.673V26.6336H144.102V66.8724H106.092V41.5368H38.9795V143.475H1.26601Z" fill="#F5D70F"/>
+<path d="M1.26601 143.475V26.6336H27.3982V1H117.673V26.6336H144.102V66.8724H106.092V41.5368H38.9795V143.475H1.26601Z" fill="url(#pattern0_10_288)" fill-opacity="0.2"/>
+<path d="M148.266 92.525L148.266 209.366H122.134V235H31.8589L31.8589 209.366H5.42972L5.42972 169.128L43.4402 169.128V194.463H110.552L110.552 92.525L148.266 92.525Z" fill="#F5D70F"/>
+<path d="M148.266 92.525L148.266 209.366H122.134V235H31.8589L31.8589 209.366H5.42972L5.42972 169.128L43.4402 169.128V194.463H110.552L110.552 92.525L148.266 92.525Z" fill="url(#pattern2_10_288)" fill-opacity="0.2"/>
+<path d="M1.26601 143.475V26.6336H27.3982V1H117.673V26.6336H144.102V66.8724H106.092V41.5368H38.9795V143.475H1.26601Z" stroke="black" stroke-width="1.5"/>
+<path d="M148.266 92.525L148.266 209.366H122.134V235H31.8589L31.8589 209.366H5.42972L5.42972 169.128L43.4402 169.128V194.463H110.552L110.552 92.525L148.266 92.525Z" stroke="black" stroke-width="1.5"/>
+<defs>
+<pattern id="pattern0_10_288" patternUnits="userSpaceOnUse" viewBox="-90 -374 200 200" width="170.06802721088434%" height="106.83760683760684%" patternContentUnits="objectBoundingBox">
+<rect width="200" height="200" transform="translate(-90 -374)" fill="url(#pattern1_10_288)"/>
+</pattern><pattern id="pattern2_10_288" patternUnits="userSpaceOnUse" viewBox="-90 -374 200 200" width="170.06802721088434%" height="106.83760683760684%" patternContentUnits="objectBoundingBox">
+<rect width="200" height="200" transform="translate(-90 -374)" fill="url(#pattern3_10_288)"/>
+</pattern><pattern id="pattern1_10_288" patternContentUnits="objectBoundingBox" width="0.03" height="0.03">
+<use xlink:href="#image0_10_288" transform="scale(0.005)"/>
+</pattern>
+<pattern id="pattern3_10_288" patternContentUnits="objectBoundingBox" width="0.03" height="0.03">
+<use xlink:href="#image0_10_288" transform="scale(0.005)"/>
+</pattern>
+<image id="image0_10_288" width="6" height="6" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAYAAAAGCAYAAADgzO9IAAAAAXNSR0IArs4c6QAAACBJREFUGFdjZGBg+M8AAYxQGs7BKYGsEM5G0Y5uFGk6AA2iAgcfjNvnAAAAAElFTkSuQmCC"/>
+</defs>
+</svg>
