@@ -320,7 +320,9 @@ export default function CookingPage() {
   const progress = totalTime > 0 ? ((totalTime - timeRemaining) / totalTime) * 100 : 0;
 
   return (
-    <div className="min-h-screen bg-[#fcfbf4] font-pixel select-none">
+    <div className="min-h-screen bg-[#fcfbf4] font-pixel select-none" style={{
+      imageRendering: 'crisp-edges'
+    }}>
       {/* Stage: Select Rice */}
       {stage === 'select_rice' && (
         <div className="relative w-full h-screen max-w-[100vw] mx-auto">
@@ -362,8 +364,8 @@ export default function CookingPage() {
           </div>
 
           {/* Rice Options Grid - Frame 3 */}
-          <div className="absolute top-72 left-4 right-4">
-            <div className="grid grid-cols-2 gap-2" style={{ width: '100%', height: '200px' }}>
+          <div className="absolute top-64 left-4 right-4">
+            <div className="grid grid-cols-2 gap-2" style={{ width: '100%', height: '180px' }}>
               {riceOptions.map((option, index) => (
                 <div key={option.name} className="flex items-center justify-center p-1">
                   <img 
@@ -421,7 +423,7 @@ export default function CookingPage() {
 
           {/* Main Content - Frame 6 */}
           <div className="absolute top-32 left-4 right-4">
-            <div className="flex flex-col space-y-8">
+            <div className="flex flex-col space-y-6">
               {/* Rice Details - Frame 4 */}
               <div className="w-[205px] h-[84px] flex flex-col space-y-1 mx-auto">
                 <div className="text-5xl font-normal text-black text-center">{selectedRice.name}</div>
@@ -429,11 +431,11 @@ export default function CookingPage() {
               </div>
 
               {/* Cups Amount - Frame 7 */}
-              <div className="w-[293px] h-[130.67px] flex flex-col space-y-1">
+              <div className="w-full h-[110px] flex flex-col space-y-1">
                 <div className="text-xl text-black text-center">rice amount (cups)</div>
                 
                 {/* Amount Controls - Frame 5 */}
-                <div className="w-[293px] h-[78.67px] flex items-center space-x-1">
+                <div className="w-full h-[60px] flex items-center space-x-1">
                   {/* Minus Button */}
                   <div className="w-[49px] h-[50px] relative">
                     <div 
@@ -461,7 +463,7 @@ export default function CookingPage() {
                   </div>
 
                   {/* Amount Display */}
-                  <div className="w-[188.82px] h-[78.67px] flex items-center justify-center">
+                  <div className="flex-1 h-[60px] flex items-center justify-center">
                     <div className="w-[151.05px] h-[62.16px] flex items-center justify-center" style={{
                       background: `linear-gradient(rgba(252, 252, 244, 1), rgba(252, 252, 244, 1)), url(${pattern8pxSvg})`,
                       backgroundRepeat: 'repeat',
@@ -504,7 +506,7 @@ export default function CookingPage() {
               </div>
 
                              {/* Water Needed - Frame 8 */}
-               <div className="w-[293px] h-[130px] flex items-center justify-center" style={{
+               <div className="w-full h-[100px] flex items-center justify-center" style={{
                  background: `linear-gradient(rgba(255, 221, 0, 0.8), rgba(255, 221, 0, 0.8)), url(${pattern8pxSvg})`,
                  backgroundRepeat: 'repeat',
                  border: '3.74px solid black',
@@ -587,14 +589,14 @@ export default function CookingPage() {
 
           {/* Main Content - Frame 11 */}
           <div className="absolute top-32 left-4 right-4">
-            <div className="flex flex-col space-y-14">
+            <div className="flex flex-col space-y-8">
               {/* Title - Frame 4 */}
               <div className="w-[267px] h-[96px] flex flex-col space-y-1 mx-auto">
                 <div className="text-4xl font-normal text-black text-center">we're cooking some rice</div>
               </div>
 
                               {/* Timer and Controls - Frame 9 */}
-                <div className="w-[224px] h-[219px] flex flex-col space-y-6 mx-auto">
+                <div className="w-full max-w-[224px] h-[180px] flex flex-col space-y-4 mx-auto">
                   {/* Timer Display */}
                   <div className="w-[224px] h-[103px] flex items-center justify-center animate-bounce relative overflow-hidden" style={{
                     animation: 'bounce 2s infinite'
@@ -631,9 +633,9 @@ export default function CookingPage() {
                   </div>
 
                 {/* Play/Pause Controls */}
-                <div className="w-[224px] h-[93px] flex justify-between items-center">
+                <div className="w-full max-w-[224px] h-[70px] flex justify-between items-center">
                   {/* Pause Button */}
-                  <div className="w-[70px] h-[93px] flex flex-col items-center space-y-2">
+                  <div className="w-[70px] h-[70px] flex flex-col items-center space-y-1">
                     <div 
                       className="w-[70px] h-[70px] cursor-pointer touch-manipulation active:scale-95 transition-transform"
                       onClick={() => setIsRunning(false)}
@@ -654,7 +656,7 @@ export default function CookingPage() {
                   </div>
 
                   {/* Play Button */}
-                  <div className="w-[70px] h-[93px] flex flex-col items-center space-y-2">
+                  <div className="w-[70px] h-[70px] flex flex-col items-center space-y-1">
                     <div 
                       className="w-[70px] h-[70px] cursor-pointer touch-manipulation active:scale-95 transition-transform"
                       onClick={() => setIsRunning(true)}

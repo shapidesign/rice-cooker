@@ -8,7 +8,9 @@ export default function Home() {
   const [isButtonPressed, setIsButtonPressed] = useState(false);
 
   return (
-    <div className="h-screen bg-[#fcfbf4] relative overflow-hidden font-pixel">
+    <div className="h-screen bg-[#fcfbf4] relative overflow-hidden font-pixel" style={{
+      imageRendering: 'crisp-edges'
+    }}>
       {/* Background Pattern - Circles 48px */}
       <div className="absolute inset-0 opacity-10">
         <div className="w-full h-full" style={{
@@ -23,8 +25,8 @@ export default function Home() {
       </div>
 
       {/* Main Content - Frame 2 */}
-      <div className="relative z-20 flex flex-col items-center justify-center min-h-screen">
-        <div className="w-[207px] flex flex-col items-center space-y-[63px]">
+      <div className="relative z-20 flex flex-col items-center justify-center h-screen">
+        <div className="w-[207px] flex flex-col items-center space-y-8">
           {/* Header */}
           <header className="text-center w-[197px] h-[160px] flex flex-col justify-center">
             <div className="text-6xl font-bold text-black mb-2 leading-none">ricey</div>
@@ -32,7 +34,7 @@ export default function Home() {
           </header>
 
           {/* Main Logo - ricey-logo */}
-          <div className="w-[153px] h-[243px] flex items-center justify-center">
+          <div className="w-[120px] h-[180px] flex items-center justify-center">
             <img src={riceyLogo} alt="Ricey Logo" className="w-full h-full" />
           </div>
 
