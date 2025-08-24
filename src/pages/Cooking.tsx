@@ -35,7 +35,7 @@ import timerTrueSvg from "../assets/timer=true.svg";
 import tipSvg from "../assets/tip.svg";
 import pattern8pxSvg from "../assets/8px.svg";
 // Audio file for completion sound
-const asianGongMusic = "/asian-gong-music.mp3";
+const asianGongMusic = "/rice-cooker/asian-gong-music.mp3";
 
 // Create a simple beep sound as fallback
 const createBeepSound = () => {
@@ -480,9 +480,20 @@ export default function CookingPage() {
   // Test function to manually trigger audio
   const testAudio = async () => {
     console.log('Testing your MP3 file...');
+    console.log('MP3 path:', asianGongMusic);
     setUserInteracted(true);
     
     try {
+      // First, test if the file is accessible
+      console.log('Checking if MP3 file is accessible...');
+      const response = await fetch(asianGongMusic);
+      if (response.ok) {
+        console.log('✅ MP3 file is accessible!');
+      } else {
+        console.error('❌ MP3 file not accessible:', response.status);
+        throw new Error(`MP3 file not accessible: ${response.status}`);
+      }
+      
       // Create audio element
       const audio = new Audio(asianGongMusic);
       
@@ -491,33 +502,34 @@ export default function CookingPage() {
       audio.preload = 'auto';
       
       // Add event listeners for debugging
-      audio.addEventListener('loadstart', () => console.log('MP3 loading started'));
-      audio.addEventListener('canplay', () => console.log('MP3 can play'));
-      audio.addEventListener('play', () => console.log('MP3 started playing'));
-      audio.addEventListener('ended', () => console.log('MP3 ended'));
+      audio.addEventListener('loadstart', () => console.log('🔄 MP3 loading started'));
+      audio.addEventListener('canplay', () => console.log('✅ MP3 can play'));
+      audio.addEventListener('play', () => console.log('🎵 MP3 started playing'));
+      audio.addEventListener('ended', () => console.log('🏁 MP3 ended'));
       audio.addEventListener('error', (e) => {
-        console.error('MP3 error:', e);
+        console.error('❌ MP3 error:', e);
         console.error('Error details:', audio.error);
       });
       
       // Try to play the audio
+      console.log('Attempting to play MP3...');
       const playPromise = audio.play();
       
       if (playPromise !== undefined) {
         await playPromise;
-        console.log('Your MP3 played successfully!');
+        console.log('🎉 Your MP3 played successfully!');
       }
       
     } catch (error) {
-      console.error('MP3 failed:', error);
+      console.error('❌ MP3 failed:', error);
       
       // Fallback to beep sound
       try {
-        console.log('Trying beep sound fallback...');
+        console.log('🔊 Trying beep sound fallback...');
         createBeepSound();
-        console.log('Beep sound played successfully');
+        console.log('🔊 Beep sound played successfully');
       } catch (beepError) {
-        console.error('Beep sound also failed:', beepError);
+        console.error('❌ Beep sound also failed:', beepError);
       }
     }
   };
@@ -542,6 +554,7 @@ export default function CookingPage() {
       const audio = new Audio(asianGongMusic);
       audio.load();
       setAudioReady(true);
+      console.log('Audio preloaded:', asianGongMusic);
     }
     
     const timeInSeconds = selectedRice.time * 60;
