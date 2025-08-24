@@ -49,10 +49,10 @@ export default function Home() {
           </div>
 
           {/* Main Action Button - Sharp Button */}
-          <div className="w-[207px] h-[50.63px]">
+          <div className="w-[220px] h-[60px]">
             <Link to="/cooking">
               <div 
-                className="w-[163px] h-[42px] mx-auto relative"
+                className="w-[200px] h-[52px] mx-auto relative"
                 onMouseDown={() => setIsButtonPressed(true)}
                 onMouseUp={() => setIsButtonPressed(false)}
                 onMouseLeave={() => setIsButtonPressed(false)}

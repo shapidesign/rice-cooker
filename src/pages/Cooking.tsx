@@ -321,8 +321,10 @@ export default function CookingPage() {
       try {
         const timerData = JSON.parse(savedTimer);
         const now = Date.now();
+        
+        // Calculate elapsed time correctly
         const elapsedTime = Math.floor((now - timerData.startTime) / 1000);
-        const remainingTime = Math.max(0, timerData.timeRemaining - elapsedTime);
+        const remainingTime = Math.max(0, timerData.totalTime - elapsedTime);
         
         if (remainingTime > 0 && timerData.isRunning) {
           setTimeRemaining(remainingTime);
@@ -702,7 +704,7 @@ export default function CookingPage() {
                </div>
 
               {/* Start Cooking Button - Sharp Button */}
-              <div className="w-[163px] h-[42px] mx-auto">
+              <div className="w-[200px] h-[52px] mx-auto">
                 <div
                   className="w-full h-full relative cursor-pointer touch-manipulation active:scale-95 transition-transform"
                   onMouseEnter={() => setIsButtonPressed(true)}
@@ -784,7 +786,9 @@ export default function CookingPage() {
                   <div className="w-[224px] h-[103px] flex items-center justify-center animate-bounce relative overflow-hidden" style={{
                     animation: 'bounce 2s infinite'
                   }}>
-                    <div className="w-[209px] h-[96px] bg-[#FD0] border-[3.7px] border-black flex items-center justify-center relative overflow-hidden">
+                    <div className="w-[209px] h-[96px] bg-[#FD0] border-[3.7px] border-black flex items-center justify-center relative overflow-hidden" style={{
+                      filter: 'drop-shadow(-4px 4px 0px #000000)'
+                    }}>
                       {/* Rice Progress Fill */}
                       <div 
                         className="absolute bottom-0 left-0 bg-[#F5DEB3] transition-all duration-300 ease-out"
