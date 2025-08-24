@@ -37,6 +37,25 @@ import pattern8pxSvg from "../assets/8px.svg";
 // Audio file for completion sound
 const asianGongMusic = "/asian-gong-music.mp3";
 
+// Create a simple beep sound as fallback
+const createBeepSound = () => {
+  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const oscillator = audioContext.createOscillator();
+  const gainNode = audioContext.createGain();
+  
+  oscillator.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+  
+  oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+  oscillator.type = 'sine';
+  
+  gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+  
+  oscillator.start(audioContext.currentTime);
+  oscillator.stop(audioContext.currentTime + 1);
+};
+
 const riceOptions = [
   { category: "test", variety: "test", name: "Test", time: 0.17, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
   { category: "jasmine", variety: "white", name: "Jasmine", time: 12, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
@@ -461,13 +480,33 @@ export default function CookingPage() {
   // Test function to manually trigger audio
   const testAudio = async () => {
     console.log('Testing audio manually...');
+    
+    // Try the gong sound first
     try {
       const audio = new Audio(asianGongMusic);
       audio.volume = 1.0;
+      audio.preload = 'auto';
+      
+      // Add event listeners for debugging
+      audio.addEventListener('loadstart', () => console.log('Audio loading started'));
+      audio.addEventListener('canplay', () => console.log('Audio can play'));
+      audio.addEventListener('play', () => console.log('Audio started playing'));
+      audio.addEventListener('ended', () => console.log('Audio ended'));
+      audio.addEventListener('error', (e) => console.error('Audio error:', e));
+      
       await audio.play();
-      console.log('Test audio played successfully');
+      console.log('Gong sound played successfully');
     } catch (error) {
-      console.error('Test audio failed:', error);
+      console.error('Gong sound failed:', error);
+      
+      // Fallback to beep sound
+      try {
+        console.log('Trying beep sound fallback...');
+        createBeepSound();
+        console.log('Beep sound played successfully');
+      } catch (beepError) {
+        console.error('Beep sound also failed:', beepError);
+      }
     }
   };
   
@@ -536,23 +575,34 @@ export default function CookingPage() {
             console.log('Second gong sound played successfully');
           } catch (error) {
             console.error('Error playing second gong:', error);
+            
+            // Fallback to beep for second sound
+            try {
+              createBeepSound();
+              console.log('Second beep sound played successfully');
+            } catch (beepError) {
+              console.error('Second beep sound also failed:', beepError);
+            }
           }
         }, 500);
         
       } catch (error) {
         console.error('Error playing gong sound:', error);
         
-        // Fallback: try with different approach
+        // Fallback to beep sounds
         try {
-          console.log('Trying fallback audio method...');
-          const audio = new Audio();
-          audio.src = asianGongMusic;
-          audio.volume = 1.0;
-          audio.play().then(() => {
-            console.log('Fallback audio played successfully');
-          }).catch((fallbackError) => {
-            console.error('Fallback audio also failed:', fallbackError);
-          });
+          console.log('Trying beep sound fallback...');
+          createBeepSound();
+          
+          setTimeout(() => {
+            try {
+              createBeepSound();
+              console.log('Second beep sound played successfully');
+            } catch (beepError) {
+              console.error('Second beep sound failed:', beepError);
+            }
+          }, 500);
+          
         } catch (fallbackError) {
           console.error('All audio methods failed:', fallbackError);
         }
