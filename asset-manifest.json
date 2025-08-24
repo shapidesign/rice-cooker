@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/rice-cooker/static/css/main.d6456dfc.css",
-    "main.js": "/rice-cooker/static/js/main.eaca589f.js",
+    "main.js": "/rice-cooker/static/js/main.576151e4.js",
     "static/media/tip.svg": "/rice-cooker/static/media/tip.1c4b5e77924c3b3556ba3b00fdbb35e6.svg",
     "static/media/basmati-t.svg": "/rice-cooker/static/media/basmati-t.fa2686e2754eaa5de56bb9dbbe038769.svg",
     "static/media/basmati.svg": "/rice-cooker/static/media/basmati.3517d6579a2b247a1cc73d3c68e569ac.svg",
@@ -24,19 +24,19 @@
     "static/media/back-rtue.svg": "/rice-cooker/static/media/back-rtue.dd51bf02fbe8317418089416859e01c1.svg",
     "static/media/pause=false.svg": "/rice-cooker/static/media/pause=false.d36979efcbcc5efd4971a3eb6eb14a2c.svg",
     "static/media/+=false.svg": "/rice-cooker/static/media/+=false.a996f3c223bd23da8ff5e013ef53aa24.svg",
+    "index.html": "/rice-cooker/index.html",
     "static/media/play-lines.svg": "/rice-cooker/static/media/play-lines.b60264e217ea5f25f860161bab9c5b94.svg",
     "static/media/-=false.svg": "/rice-cooker/static/media/-=false.fb791b70715cdc2868b9740f11683ca8.svg",
     "static/media/+=true.svg": "/rice-cooker/static/media/+=true.ac5258cb659c1dd27841a1e4baf5002e.svg",
     "static/media/-=true.svg": "/rice-cooker/static/media/-=true.9d18128230b9d1262a7bc3f787ff6a35.svg",
     "static/media/type=false2.svg": "/rice-cooker/static/media/type=false2.557d2eba3d8b2a92ea7bb413e668f945.svg",
     "static/media/type=true2.svg": "/rice-cooker/static/media/type=true2.a3e5204869d00d815904ed36f9968d13.svg",
-    "index.html": "/rice-cooker/index.html",
     "static/media/8px.svg": "/rice-cooker/static/media/8px.c11171dd1e1f094d0afeeaabdcfa623c.svg",
     "main.d6456dfc.css.map": "/rice-cooker/static/css/main.d6456dfc.css.map",
-    "main.eaca589f.js.map": "/rice-cooker/static/js/main.eaca589f.js.map"
+    "main.576151e4.js.map": "/rice-cooker/static/js/main.576151e4.js.map"
   },
   "entrypoints": [
     "static/css/main.d6456dfc.css",
-    "static/js/main.eaca589f.js"
+    "static/js/main.576151e4.js"
   ]
 }
