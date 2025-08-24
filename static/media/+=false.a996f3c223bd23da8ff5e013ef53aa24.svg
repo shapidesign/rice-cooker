@@ -1,7 +1,6 @@
-<svg width="53" height="56" viewBox="0 0 53 56" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="53" height="56" viewBox="0 0 53 56" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_dd_10_396)">
 <rect x="4" y="2" width="45" height="46" fill="#FFFFE9"/>
-<rect x="4" y="2" width="45" height="46" fill="url(#pattern0_10_396)" fill-opacity="0.2"/>
 <rect x="5" y="3" width="43" height="44" stroke="black" stroke-width="2"/>
 <path d="M25.584 28.614V25.968H23.092V24.792H25.584V22.146H26.816V24.792H29.308V25.968H26.816V28.614H25.584Z" fill="black"/>
 </g>
@@ -21,11 +20,5 @@
 <feBlend mode="normal" in2="effect1_dropShadow_10_396" result="effect2_dropShadow_10_396"/>
 <feBlend mode="normal" in="SourceGraphic" in2="effect2_dropShadow_10_396" result="shape"/>
 </filter>
-<pattern id="pattern0_10_396" patternUnits="userSpaceOnUse" viewBox="-180 177 125 125" width="277.77777777777777%" height="271.73913043478262%" patternContentUnits="objectBoundingBox">
-<rect width="125" height="125" transform="translate(-180 177)" fill="url(#pattern1_10_396)"/>
-</pattern><pattern id="pattern1_10_396" patternContentUnits="objectBoundingBox" width="0.064" height="0.064">
-<use xlink:href="#image0_10_396" transform="scale(0.008)"/>
-</pattern>
-<image id="image0_10_396" width="8" height="8" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAABdJREFUGBljYMADpk+f/h+n9DCSBPoRAGVNFiE1BkVsAAAAAElFTkSuQmCC"/>
 </defs>
 </svg>
