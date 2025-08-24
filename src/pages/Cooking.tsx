@@ -411,7 +411,7 @@ export default function CookingPage() {
           {/* Header - Frame 12 */}
           <div className="absolute top-8 left-8 right-8 flex justify-between items-center">
             <div
-              className="w-12 h-12 relative cursor-pointer"
+              className="w-[68px] h-[68px] relative cursor-pointer"
               onMouseDown={() => setIsBackPressed(true)}
               onMouseUp={() => setIsBackPressed(false)}
               onMouseLeave={() => setIsBackPressed(false)}
@@ -425,8 +425,8 @@ export default function CookingPage() {
                 className="w-full h-full" 
               />
             </div>
-            <div className="w-7 h-11">
-              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full" />
+            <div className="w-[68px] h-[68px]">
+              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full object-contain" />
             </div>
           </div>
 
@@ -535,7 +535,7 @@ export default function CookingPage() {
                </div>
 
               {/* Start Cooking Button - Sharp Button */}
-              <div className="w-[294.71px] h-[70.14px] mx-auto">
+              <div className="w-[159px] h-[38px] mx-auto">
                 <div
                   className="w-full h-full relative cursor-pointer touch-manipulation active:scale-95 transition-transform"
                   onMouseEnter={() => setIsButtonPressed(true)}
@@ -579,7 +579,7 @@ export default function CookingPage() {
           {/* Header - Frame 12 */}
           <div className="absolute top-8 left-8 right-8 flex justify-between items-center">
             <div
-              className="w-12 h-12 relative cursor-pointer"
+              className="w-[68px] h-[68px] relative cursor-pointer"
               onMouseDown={() => setIsBackPressed(true)}
               onMouseUp={() => setIsBackPressed(false)}
               onMouseLeave={() => setIsBackPressed(false)}
@@ -593,7 +593,7 @@ export default function CookingPage() {
                 className="w-full h-full" 
               />
             </div>
-            <div className="w-12 h-12">
+            <div className="w-[68px] h-[68px]">
               <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full object-contain" />
             </div>
           </div>

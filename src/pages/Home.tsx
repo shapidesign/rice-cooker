@@ -51,7 +51,7 @@ export default function Home() {
           <div className="w-[207px] h-[50.63px]">
             <Link to="/cooking">
               <div 
-                className="w-[163px] h-[42px] mx-auto relative"
+                className="w-[159px] h-[38px] mx-auto relative"
                 onMouseDown={() => setIsButtonPressed(true)}
                 onMouseUp={() => setIsButtonPressed(false)}
                 onMouseLeave={() => setIsButtonPressed(false)}
