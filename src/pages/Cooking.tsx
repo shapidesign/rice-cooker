@@ -271,27 +271,41 @@ export default function CookingPage() {
     let interval: NodeJS.Timeout | null = null;
     
     if (isRunning && timeRemaining > 0) {
+      // Save initial timer state
+      const timerStartTime = Date.now();
+      const initialTimeRemaining = timeRemaining;
+      
+      localStorage.setItem('riceyTimer', JSON.stringify({
+        isRunning: true,
+        timeRemaining: initialTimeRemaining,
+        totalTime,
+        selectedRice: selectedRice?.name,
+        startTime: timerStartTime,
+        lastUpdate: timerStartTime
+      }));
+      
       interval = setInterval(() => {
-        setTimeRemaining(prev => {
-          const newTime = prev <= 1 ? 0 : prev - 1;
-          
-          // Save timer state to localStorage
-          localStorage.setItem('riceyTimer', JSON.stringify({
-            isRunning,
-            timeRemaining: newTime,
-            totalTime,
-            selectedRice: selectedRice?.name,
-            startTime: Date.now() - ((totalTime - newTime) * 1000)
-          }));
-          
-          if (newTime <= 0) {
-            setIsRunning(false);
-            handleTimerComplete();
-            localStorage.removeItem('riceyTimer');
-          }
-          
-          return newTime;
-        });
+        const now = Date.now();
+        const elapsed = Math.floor((now - timerStartTime) / 1000);
+        const newTimeRemaining = Math.max(0, initialTimeRemaining - elapsed);
+        
+        setTimeRemaining(newTimeRemaining);
+        
+        // Update localStorage with current state
+        localStorage.setItem('riceyTimer', JSON.stringify({
+          isRunning: true,
+          timeRemaining: newTimeRemaining,
+          totalTime,
+          selectedRice: selectedRice?.name,
+          startTime: timerStartTime,
+          lastUpdate: now
+        }));
+        
+        if (newTimeRemaining <= 0) {
+          setIsRunning(false);
+          handleTimerComplete();
+          localStorage.removeItem('riceyTimer');
+        }
       }, 1000);
     }
     
@@ -306,18 +320,27 @@ export default function CookingPage() {
     if (savedTimer) {
       try {
         const timerData = JSON.parse(savedTimer);
-        const elapsedTime = Math.floor((Date.now() - timerData.startTime) / 1000);
+        const now = Date.now();
+        const elapsedTime = Math.floor((now - timerData.startTime) / 1000);
         const remainingTime = Math.max(0, timerData.timeRemaining - elapsedTime);
         
         if (remainingTime > 0 && timerData.isRunning) {
           setTimeRemaining(remainingTime);
           setIsRunning(true);
           setStage('timer');
+          setTotalTime(timerData.totalTime);
           
           // Find and set the selected rice
           const rice = riceOptions.find(r => r.name === timerData.selectedRice);
           if (rice) {
             setSelectedRice(rice);
+          }
+          
+          // Check if timer should have completed while away
+          if (remainingTime <= 0) {
+            setIsRunning(false);
+            handleTimerComplete();
+            localStorage.removeItem('riceyTimer');
           }
         } else {
           localStorage.removeItem('riceyTimer');
@@ -328,6 +351,61 @@ export default function CookingPage() {
       }
     }
   }, []);
+
+  // Handle page visibility changes (tab switching, app switching)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden && isRunning && timeRemaining > 0) {
+        // Page is hidden - save timer state and notify service worker
+        const timerData = {
+          timeRemaining,
+          totalTime,
+          selectedRice: selectedRice?.name,
+          startTime: Date.now() - ((totalTime - timeRemaining) * 1000)
+        };
+        
+        localStorage.setItem('riceyTimer', JSON.stringify({
+          ...timerData,
+          isRunning: true,
+          lastUpdate: Date.now()
+        }));
+        
+        // Notify service worker
+        if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({
+            type: 'TIMER_UPDATE',
+            ...timerData
+          });
+        }
+      } else if (!document.hidden && isRunning) {
+        // Page is visible again - sync timer state
+        const savedTimer = localStorage.getItem('riceyTimer');
+        if (savedTimer) {
+          try {
+            const timerData = JSON.parse(savedTimer);
+            const now = Date.now();
+            const elapsedTime = Math.floor((now - timerData.startTime) / 1000);
+            const remainingTime = Math.max(0, timerData.timeRemaining - elapsedTime);
+            
+            if (remainingTime > 0) {
+              setTimeRemaining(remainingTime);
+            } else {
+              setIsRunning(false);
+              handleTimerComplete();
+              localStorage.removeItem('riceyTimer');
+            }
+          } catch (error) {
+            console.error('Error syncing timer:', error);
+          }
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [isRunning, timeRemaining, totalTime, selectedRice]);
 
 
 
@@ -342,6 +420,13 @@ export default function CookingPage() {
     // Request notification permission
     if ('Notification' in window && Notification.permission === 'default') {
       Notification.requestPermission();
+    }
+    
+    // Request service worker registration
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(registration => {
+        console.log('Service Worker ready for timer');
+      });
     }
     
     const timeInSeconds = selectedRice.time * 60;
