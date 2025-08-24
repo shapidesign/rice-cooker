@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/rice-cooker/static/css/main.3069181d.css",
-    "main.js": "/rice-cooker/static/js/main.29cadfec.js",
+    "main.js": "/rice-cooker/static/js/main.e7fbc205.js",
     "static/media/tip.svg": "/rice-cooker/static/media/tip.1c4b5e77924c3b3556ba3b00fdbb35e6.svg",
     "static/media/basmati.svg": "/rice-cooker/static/media/basmati.7bda1b40dbc9c2c942e8c67e09c7868d.svg",
     "static/media/jasmine.svg": "/rice-cooker/static/media/jasmine.f09a7e17aaacdb8fae77cae8df6f082c.svg",
@@ -9,9 +9,9 @@
     "static/media/sushi.svg": "/rice-cooker/static/media/sushi.252d84eece0af4bc53962d3209224bee.svg",
     "static/media/short.svg": "/rice-cooker/static/media/short.07d67029de61248df0ce46439797d09a.svg",
     "static/media/whole.svg": "/rice-cooker/static/media/whole.883dd26836a1a6270f314fd8eb5afc6c.svg",
+    "static/media/cook=false.svg": "/rice-cooker/static/media/cook=false.ff1e34633911ed8d2ab65e896277a5e3.svg",
+    "static/media/cook=true.svg": "/rice-cooker/static/media/cook=true.5c91bab6d3d905a9251972f02d937b15.svg",
     "static/media/brown.svg": "/rice-cooker/static/media/brown.73afdb0c894c5026dd96208e06ad0645.svg",
-    "static/media/cook=false.svg": "/rice-cooker/static/media/cook=false.91c5543aefcac77bf2e924d67516e092.svg",
-    "static/media/cook=true.svg": "/rice-cooker/static/media/cook=true.1fef20a0ef716d605d5031109af4425e.svg",
     "static/media/play=false.svg": "/rice-cooker/static/media/play=false.87ea84b2567cd23ca79ddd8a29f0aa93.svg",
     "static/media/pause=false.svg": "/rice-cooker/static/media/pause=false.3ce07271d5de369f180e2be76f163c52.svg",
     "static/media/back=false.svg": "/rice-cooker/static/media/back=false.37c62c4fa2006013ac9f5d7bbcdb4c7c.svg",
@@ -24,10 +24,10 @@
     "index.html": "/rice-cooker/index.html",
     "static/media/8px.svg": "/rice-cooker/static/media/8px.c11171dd1e1f094d0afeeaabdcfa623c.svg",
     "main.3069181d.css.map": "/rice-cooker/static/css/main.3069181d.css.map",
-    "main.29cadfec.js.map": "/rice-cooker/static/js/main.29cadfec.js.map"
+    "main.e7fbc205.js.map": "/rice-cooker/static/js/main.e7fbc205.js.map"
   },
   "entrypoints": [
     "static/css/main.3069181d.css",
-    "static/js/main.29cadfec.js"
+    "static/js/main.e7fbc205.js"
   ]
 }
