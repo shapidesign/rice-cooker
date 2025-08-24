@@ -273,12 +273,24 @@ export default function CookingPage() {
     if (isRunning && timeRemaining > 0) {
       interval = setInterval(() => {
         setTimeRemaining(prev => {
-          if (prev <= 1) {
+          const newTime = prev <= 1 ? 0 : prev - 1;
+          
+          // Save timer state to localStorage
+          localStorage.setItem('riceyTimer', JSON.stringify({
+            isRunning,
+            timeRemaining: newTime,
+            totalTime,
+            selectedRice: selectedRice?.name,
+            startTime: Date.now() - ((totalTime - newTime) * 1000)
+          }));
+          
+          if (newTime <= 0) {
             setIsRunning(false);
             handleTimerComplete();
-            return 0;
+            localStorage.removeItem('riceyTimer');
           }
-          return prev - 1;
+          
+          return newTime;
         });
       }, 1000);
     }
@@ -286,7 +298,36 @@ export default function CookingPage() {
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isRunning, timeRemaining]);
+  }, [isRunning, timeRemaining, totalTime, selectedRice]);
+
+  // Restore timer state when component mounts
+  useEffect(() => {
+    const savedTimer = localStorage.getItem('riceyTimer');
+    if (savedTimer) {
+      try {
+        const timerData = JSON.parse(savedTimer);
+        const elapsedTime = Math.floor((Date.now() - timerData.startTime) / 1000);
+        const remainingTime = Math.max(0, timerData.timeRemaining - elapsedTime);
+        
+        if (remainingTime > 0 && timerData.isRunning) {
+          setTimeRemaining(remainingTime);
+          setIsRunning(true);
+          setStage('timer');
+          
+          // Find and set the selected rice
+          const rice = riceOptions.find(r => r.name === timerData.selectedRice);
+          if (rice) {
+            setSelectedRice(rice);
+          }
+        } else {
+          localStorage.removeItem('riceyTimer');
+        }
+      } catch (error) {
+        console.error('Error restoring timer:', error);
+        localStorage.removeItem('riceyTimer');
+      }
+    }
+  }, []);
 
 
 
@@ -297,6 +338,11 @@ export default function CookingPage() {
   
   const handleStartCooking = () => {
     if (!selectedRice) return;
+    
+    // Request notification permission
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
     
     const timeInSeconds = selectedRice.time * 60;
     setTotalTime(timeInSeconds);
@@ -309,6 +355,16 @@ export default function CookingPage() {
   const handleTimerComplete = async () => {
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    
+    // Show notification when timer completes
+    if ('Notification' in window && Notification.permission === 'granted') {
+      new Notification('Ricey Timer', {
+        body: 'Your rice is ready! 🍚',
+        icon: '/logo192.png',
+        badge: '/logo192.png'
+      });
+    }
+    
     // Logic to update session and user progress
   };
 

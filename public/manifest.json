@@ -1,0 +1,39 @@
+{
+  "short_name": "Ricey",
+  "name": "Ricey - Your Rice Guide",
+  "description": "Perfect rice cooking timer and guide",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#FFDD00",
+  "background_color": "#fcfbf4",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["food", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Start Timer",
+      "short_name": "Timer",
+      "description": "Start a new rice cooking timer",
+      "url": "/cooking",
+      "icons": [{ "src": "logo192.png", "sizes": "192x192" }]
+    }
+  ]
+}
