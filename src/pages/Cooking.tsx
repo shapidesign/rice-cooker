@@ -264,9 +264,10 @@ export default function CookingPage() {
     }
   }, [stage, timeRemaining, selectedRice]);
 
+  // Background timer that persists when navigating away
   useEffect(() => {
-    if (stage !== 'timer') return;
     let interval: NodeJS.Timeout | null = null;
+    
     if (isRunning && timeRemaining > 0) {
       interval = setInterval(() => {
         setTimeRemaining(prev => {
@@ -279,10 +280,13 @@ export default function CookingPage() {
         });
       }, 1000);
     }
+    
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isRunning, timeRemaining, stage]);
+  }, [isRunning, timeRemaining]);
+
+
 
   const handleSelectRice = (riceOption: RiceOption) => {
     setSelectedRice(riceOption);
@@ -637,7 +641,7 @@ export default function CookingPage() {
                   <div className="w-[224px] h-[103px] flex items-center justify-center animate-bounce relative overflow-hidden" style={{
                     animation: 'bounce 2s infinite'
                   }}>
-                    <div className="w-[209px] h-[96px] bg-[#FD0] border-[3.7px] border-black shadow-[-7.5px_7.5px_0px_#000000] flex items-center justify-center relative overflow-hidden">
+                    <div className="w-[209px] h-[96px] bg-[#FD0] border-[3.7px] border-black shadow-[-4px_4px_0px_#000000] flex items-center justify-center relative overflow-hidden">
                       {/* Rice Progress Fill */}
                       <div 
                         className="absolute bottom-0 left-0 bg-[#F5DEB3] transition-all duration-300 ease-out"
@@ -716,9 +720,9 @@ export default function CookingPage() {
               </div>
 
               {/* Tip Section - Frame 10 */}
-              <div className="w-[293px] flex flex-col space-y-6">
+              <div className="w-full flex flex-col space-y-6 items-center">
                 {/* Tip Button */}
-                <div className="w-[141px] h-[50px] mx-auto">
+                <div className="w-[141px] h-[50px]">
                   <img 
                     src={tipSvg} 
                     alt="Tip" 
