@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/rice-cooker/static/css/main.509c30c5.css",
-    "main.js": "/rice-cooker/static/js/main.d3435de8.js",
+    "main.css": "/rice-cooker/static/css/main.74c122a4.css",
+    "main.js": "/rice-cooker/static/js/main.e6ff3457.js",
     "static/media/tip.svg": "/rice-cooker/static/media/tip.1c4b5e77924c3b3556ba3b00fdbb35e6.svg",
     "static/media/basmati-t.svg": "/rice-cooker/static/media/basmati-t.fa2686e2754eaa5de56bb9dbbe038769.svg",
     "static/media/basmati.svg": "/rice-cooker/static/media/basmati.3517d6579a2b247a1cc73d3c68e569ac.svg",
@@ -29,11 +29,11 @@
     "static/media/-=true.svg": "/rice-cooker/static/media/-=true.9d18128230b9d1262a7bc3f787ff6a35.svg",
     "index.html": "/rice-cooker/index.html",
     "static/media/8px.svg": "/rice-cooker/static/media/8px.c11171dd1e1f094d0afeeaabdcfa623c.svg",
-    "main.509c30c5.css.map": "/rice-cooker/static/css/main.509c30c5.css.map",
-    "main.d3435de8.js.map": "/rice-cooker/static/js/main.d3435de8.js.map"
+    "main.74c122a4.css.map": "/rice-cooker/static/css/main.74c122a4.css.map",
+    "main.e6ff3457.js.map": "/rice-cooker/static/js/main.e6ff3457.js.map"
   },
   "entrypoints": [
-    "static/css/main.509c30c5.css",
-    "static/js/main.d3435de8.js"
+    "static/css/main.74c122a4.css",
+    "static/js/main.e6ff3457.js"
   ]
 }
