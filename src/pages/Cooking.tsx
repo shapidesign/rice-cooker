@@ -57,7 +57,6 @@ const createBeepSound = () => {
 };
 
 const riceOptions = [
-  { category: "test", variety: "test", name: "Test", time: 0.17, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
   { category: "jasmine", variety: "white", name: "Jasmine", time: 12, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
   { category: "basmati", variety: "white", name: "Basmati", time: 15, waterRatio: 2.0, svg: basmatiSvg, svgPressed: basmatiTSvg },
   { category: "sushi", variety: "white", name: "Sushi", time: 20, waterRatio: 1.0, svg: sushiSvg, svgPressed: sushiTSvg },
@@ -95,6 +94,7 @@ export default function CookingPage() {
   const [riceProgress, setRiceProgress] = useState(0);
   const [hasInitialized, setHasInitialized] = useState(false);
   const [audioReady, setAudioReady] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
 
 
   // 100 Cooking Tips
@@ -480,22 +480,13 @@ export default function CookingPage() {
   // Test function to manually trigger audio
   const testAudio = async () => {
     console.log('Testing your MP3 file...');
+    setUserInteracted(true);
     
-    // First, test if the file is accessible
     try {
-      const response = await fetch(asianGongMusic);
-      if (response.ok) {
-        console.log('MP3 file is accessible!');
-      } else {
-        console.error('MP3 file not accessible:', response.status);
-      }
-    } catch (fetchError) {
-      console.error('Error fetching MP3 file:', fetchError);
-    }
-    
-    // Test your MP3 file
-    try {
+      // Create audio element
       const audio = new Audio(asianGongMusic);
+      
+      // Set audio properties
       audio.volume = 1.0;
       audio.preload = 'auto';
       
@@ -504,10 +495,19 @@ export default function CookingPage() {
       audio.addEventListener('canplay', () => console.log('MP3 can play'));
       audio.addEventListener('play', () => console.log('MP3 started playing'));
       audio.addEventListener('ended', () => console.log('MP3 ended'));
-      audio.addEventListener('error', (e) => console.error('MP3 error:', e));
+      audio.addEventListener('error', (e) => {
+        console.error('MP3 error:', e);
+        console.error('Error details:', audio.error);
+      });
       
-      await audio.play();
-      console.log('Your MP3 played successfully!');
+      // Try to play the audio
+      const playPromise = audio.play();
+      
+      if (playPromise !== undefined) {
+        await playPromise;
+        console.log('Your MP3 played successfully!');
+      }
+      
     } catch (error) {
       console.error('MP3 failed:', error);
       
@@ -715,9 +715,14 @@ export default function CookingPage() {
           <div className="absolute top-32 left-1/2 transform -translate-x-1/2">
             <button 
               onClick={testAudio}
-              className="px-4 py-2 bg-yellow-400 border-2 border-black text-black font-bold rounded shadow-lg hover:bg-yellow-300"
+              className="px-6 py-3 bg-green-500 border-2 border-black text-white font-bold rounded-lg shadow-lg hover:bg-green-400 active:bg-green-600 transition-colors"
+              style={{
+                fontSize: '16px',
+                fontWeight: 'bold',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+              }}
             >
-              Test Your MP3
+              🔊 Test Your MP3 🔊
             </button>
           </div>
 
