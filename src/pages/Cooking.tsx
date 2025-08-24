@@ -462,7 +462,7 @@ export default function CookingPage() {
                 {/* Amount Controls - Frame 5 */}
                 <div className="w-full h-[60px] flex items-center space-x-1">
                   {/* Minus Button */}
-                  <div className="w-[49px] h-[50px] relative">
+                  <div className="w-[51px] h-[52px] relative">
                     <div 
                       className="w-full h-full cursor-pointer touch-manipulation active:scale-95 transition-transform"
                       onMouseDown={() => setIsMinusPressed(true)}
@@ -500,7 +500,7 @@ export default function CookingPage() {
                   </div>
 
                   {/* Plus Button */}
-                  <div className="w-[49px] h-[50px] relative">
+                  <div className="w-[53px] h-[56px] relative">
                     <div 
                       className="w-full h-full cursor-pointer touch-manipulation active:scale-95 transition-transform"
                       onMouseDown={() => setIsPlusPressed(true)}
@@ -530,6 +530,9 @@ export default function CookingPage() {
                 <div className="text-lg text-black text-center">serves {Math.ceil(cups * 2)}-{Math.ceil(cups * 3)}</div>
               </div>
 
+              {/* Water Needed Label */}
+              <div className="text-xl text-black text-center">water needed:</div>
+
                              {/* Water Needed - Frame 8 */}
                <div className="w-full h-[100px] flex items-center justify-center" style={{
                  background: `linear-gradient(rgba(255, 221, 0, 0.8), rgba(255, 221, 0, 0.8)), url(${pattern8pxSvg})`,
@@ -537,15 +540,12 @@ export default function CookingPage() {
                  border: '3.74px solid black',
                  boxShadow: '-4px 4px 0px #000000'
                }}>
-                 <div className="w-[197px] h-[115px] flex flex-col space-y-1.5">
-                   <div className="text-xl text-[#4B4B4B] text-center">water needed:</div>
-                   <div className="w-[197px] h-[63px] flex items-center justify-center">
-                     <div className="w-[192px] h-[58px] bg-[#D2D6D8] border-2 border-black shadow-[-5px_5px_0px_#000000] flex items-center justify-center" style={{
-                       backgroundImage: `url(${pattern8pxSvg})`,
-                       backgroundRepeat: 'repeat'
-                     }}>
-                       <div className="text-lg font-code text-black">{waterCups} cups ({waterMl}ml)</div>
-                     </div>
+                 <div className="w-[197px] h-[58px] flex items-center justify-center">
+                   <div className="w-[192px] h-[58px] bg-[#D2D6D8] border-2 border-black shadow-[-5px_5px_0px_#000000] flex items-center justify-center" style={{
+                     backgroundImage: `url(${pattern8pxSvg})`,
+                     backgroundRepeat: 'repeat'
+                   }}>
+                     <div className="text-lg font-code text-black">{waterCups} cups ({waterMl}ml)</div>
                    </div>
                  </div>
                </div>
