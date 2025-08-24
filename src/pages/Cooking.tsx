@@ -524,7 +524,7 @@ export default function CookingPage() {
                  boxShadow: '-4px 4px 0px #000000'
                }}>
                  <div className="w-[197px] h-[115px] flex flex-col space-y-1.5">
-                   <div className="text-xl text-[#4B4B4B] text-center px-4">water needed:</div>
+                   <div className="text-xl text-[#4B4B4B] text-center">water needed:</div>
                    <div className="w-[197px] h-[63px] flex items-center justify-center">
                      <div className="w-[192px] h-[58px] bg-[#D2D6D8] border-2 border-black shadow-[-5px_5px_0px_#000000] flex items-center justify-center" style={{
                        backgroundImage: `url(${pattern8pxSvg})`,
