@@ -26,6 +26,8 @@ import shortTSvg from "../assets/short-t.svg";
 import cookFalseSvg from "../assets/cook=false.svg";
 import cookTrueSvg from "../assets/cook=true.svg";
 import pauseFalseSvg from "../assets/pause=false.svg";
+import playSvg from "../assets/Play.svg";
+import playLinesSvg from "../assets/play-lines.svg";
 
 import timerSvg from "../assets/timer.svg";
 import timerFalseSvg from "../assets/timer=false.svg";
@@ -547,7 +549,7 @@ export default function CookingPage() {
                  border: '3.74px solid black',
                  boxShadow: '-4px 4px 0px #000000'
                }}>
-                 <div className="w-[197px] h-[58px] flex flex-col items-center justify-center space-y-2">
+                 <div className="flex flex-col items-center justify-center space-y-2">
                    <div className="text-xl text-black text-center">water needed:</div>
                    <div className="w-[192px] h-[58px] bg-[#D2D6D8] border-2 border-black shadow-[-5px_5px_0px_#000000] flex items-center justify-center" style={{
                      backgroundImage: `url(${pattern8pxSvg})`,
@@ -707,12 +709,16 @@ export default function CookingPage() {
                         e.currentTarget.style.transform = 'scale(1)';
                       }}
                     >
-                      <div 
-                        className="w-full h-full bg-[#0AC285] border-2 border-black shadow-[-3.3px_3.3px_0px_#000000] flex items-center justify-center cursor-pointer"
+                      <img 
+                        src={playSvg} 
+                        alt="Play" 
+                        className="w-full h-full" 
                         style={{ imageRendering: 'crisp-edges' }}
-                      >
-                        <div className="w-0 h-0 border-l-[20px] border-l-black border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-2"></div>
-                      </div>
+                        onError={(e) => {
+                          // Fallback to play-lines.svg if Play.svg fails
+                          e.currentTarget.src = playLinesSvg;
+                        }}
+                      />
                     </div>
                     <div className="text-base text-black text-center w-full">play</div>
                   </div>
