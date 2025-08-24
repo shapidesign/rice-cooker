@@ -442,6 +442,19 @@ export default function CookingPage() {
     setSelectedRice(riceOption);
     setStage('set_amount');
   };
+
+  // Test function to manually trigger audio
+  const testAudio = async () => {
+    console.log('Testing audio manually...');
+    try {
+      const audio = new Audio(asianGongMusic);
+      audio.volume = 1.0;
+      await audio.play();
+      console.log('Test audio played successfully');
+    } catch (error) {
+      console.error('Test audio failed:', error);
+    }
+  };
   
   const handleStartCooking = () => {
     if (!selectedRice) return;
@@ -474,38 +487,65 @@ export default function CookingPage() {
   };
 
   const handleTimerComplete = async () => {
+    console.log('Timer completed! Playing audio...');
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     
-    // Play gong sound twice with overlap
-    try {
-      const audio1 = new Audio(asianGongMusic);
-      const audio2 = new Audio(asianGongMusic);
-      
-      // Set volume and ensure it can play over other audio
-      audio1.volume = 1.0;
-      audio2.volume = 1.0;
-      
-      // Play first gong
-      await audio1.play();
-      
-      // Play second gong when first one ends
-      audio1.addEventListener('ended', () => {
-        audio2.play().catch(error => {
-          console.error('Error playing second gong:', error);
-        });
-      });
-      
-      // Also try to play immediately for better reliability
-      setTimeout(() => {
-        audio2.play().catch(error => {
-          console.error('Error playing second gong (delayed):', error);
-        });
-      }, 1000);
-      
-    } catch (error) {
-      console.error('Error playing gong sound:', error);
-    }
+    // Play gong sound with multiple fallbacks
+    const playGongSound = async () => {
+      try {
+        console.log('Attempting to play gong sound...');
+        const audio = new Audio(asianGongMusic);
+        
+        // Set audio properties for better compatibility
+        audio.volume = 1.0;
+        audio.preload = 'auto';
+        
+        // Add event listeners for debugging
+        audio.addEventListener('loadstart', () => console.log('Audio loading started'));
+        audio.addEventListener('canplay', () => console.log('Audio can play'));
+        audio.addEventListener('play', () => console.log('Audio started playing'));
+        audio.addEventListener('ended', () => console.log('Audio ended'));
+        audio.addEventListener('error', (e) => console.error('Audio error:', e));
+        
+        // Try to play the audio
+        await audio.play();
+        console.log('First gong sound played successfully');
+        
+        // Play second gong after a short delay
+        setTimeout(async () => {
+          try {
+            const audio2 = new Audio(asianGongMusic);
+            audio2.volume = 1.0;
+            await audio2.play();
+            console.log('Second gong sound played successfully');
+          } catch (error) {
+            console.error('Error playing second gong:', error);
+          }
+        }, 500);
+        
+      } catch (error) {
+        console.error('Error playing gong sound:', error);
+        
+        // Fallback: try with different approach
+        try {
+          console.log('Trying fallback audio method...');
+          const audio = new Audio();
+          audio.src = asianGongMusic;
+          audio.volume = 1.0;
+          audio.play().then(() => {
+            console.log('Fallback audio played successfully');
+          }).catch((fallbackError) => {
+            console.error('Fallback audio also failed:', fallbackError);
+          });
+        } catch (fallbackError) {
+          console.error('All audio methods failed:', fallbackError);
+        }
+      }
+    };
+    
+    // Play the sound
+    await playGongSound();
     
     // Show notification when timer completes
     if ('Notification' in window && Notification.permission === 'granted') {
@@ -592,6 +632,16 @@ export default function CookingPage() {
           {/* Title - choose your rice! */}
           <div className="absolute top-40 left-1/2 transform -translate-x-1/2 text-center">
             <div className="text-3xl font-normal text-black whitespace-nowrap">choose your rice!</div>
+          </div>
+
+          {/* Test Audio Button */}
+          <div className="absolute top-32 left-1/2 transform -translate-x-1/2">
+            <button 
+              onClick={testAudio}
+              className="px-4 py-2 bg-yellow-400 border-2 border-black text-black font-bold rounded shadow-lg hover:bg-yellow-300"
+            >
+              Test Audio
+            </button>
           </div>
 
           {/* Rice Options Grid - Frame 3 */}
