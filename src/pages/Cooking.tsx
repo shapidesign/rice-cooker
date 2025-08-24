@@ -94,7 +94,6 @@ export default function CookingPage() {
   const [riceProgress, setRiceProgress] = useState(0);
   const [hasInitialized, setHasInitialized] = useState(false);
   const [audioReady, setAudioReady] = useState(false);
-  const [userInteracted, setUserInteracted] = useState(false);
 
 
   // 100 Cooking Tips
@@ -477,62 +476,7 @@ export default function CookingPage() {
     setStage('set_amount');
   };
 
-  // Test function to manually trigger audio
-  const testAudio = async () => {
-    console.log('Testing your MP3 file...');
-    console.log('MP3 path:', asianGongMusic);
-    setUserInteracted(true);
-    
-    try {
-      // First, test if the file is accessible
-      console.log('Checking if MP3 file is accessible...');
-      const response = await fetch(asianGongMusic);
-      if (response.ok) {
-        console.log('✅ MP3 file is accessible!');
-      } else {
-        console.error('❌ MP3 file not accessible:', response.status);
-        throw new Error(`MP3 file not accessible: ${response.status}`);
-      }
-      
-      // Create audio element
-      const audio = new Audio(asianGongMusic);
-      
-      // Set audio properties
-      audio.volume = 1.0;
-      audio.preload = 'auto';
-      
-      // Add event listeners for debugging
-      audio.addEventListener('loadstart', () => console.log('🔄 MP3 loading started'));
-      audio.addEventListener('canplay', () => console.log('✅ MP3 can play'));
-      audio.addEventListener('play', () => console.log('🎵 MP3 started playing'));
-      audio.addEventListener('ended', () => console.log('🏁 MP3 ended'));
-      audio.addEventListener('error', (e) => {
-        console.error('❌ MP3 error:', e);
-        console.error('Error details:', audio.error);
-      });
-      
-      // Try to play the audio
-      console.log('Attempting to play MP3...');
-      const playPromise = audio.play();
-      
-      if (playPromise !== undefined) {
-        await playPromise;
-        console.log('🎉 Your MP3 played successfully!');
-      }
-      
-    } catch (error) {
-      console.error('❌ MP3 failed:', error);
-      
-      // Fallback to beep sound
-      try {
-        console.log('🔊 Trying beep sound fallback...');
-        createBeepSound();
-        console.log('🔊 Beep sound played successfully');
-      } catch (beepError) {
-        console.error('❌ Beep sound also failed:', beepError);
-      }
-    }
-  };
+
   
   const handleStartCooking = () => {
     if (!selectedRice) return;
@@ -724,20 +668,7 @@ export default function CookingPage() {
             <div className="text-3xl font-normal text-black whitespace-nowrap">choose your rice!</div>
           </div>
 
-          {/* Test Audio Button */}
-          <div className="absolute top-32 left-1/2 transform -translate-x-1/2">
-            <button 
-              onClick={testAudio}
-              className="px-6 py-3 bg-green-500 border-2 border-black text-white font-bold rounded-lg shadow-lg hover:bg-green-400 active:bg-green-600 transition-colors"
-              style={{
-                fontSize: '16px',
-                fontWeight: 'bold',
-                textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
-              }}
-            >
-              🔊 Test Your MP3 🔊
-            </button>
-          </div>
+
 
           {/* Rice Options Grid - Frame 3 */}
           <div className="absolute top-64 left-4 right-4">
