@@ -38,6 +38,7 @@ import pattern8pxSvg from "../assets/8px.svg";
 const asianGongMusic = "/asian-gong-music.mp3";
 
 const riceOptions = [
+  { category: "test", variety: "test", name: "Test", time: 0.17, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
   { category: "jasmine", variety: "white", name: "Jasmine", time: 12, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
   { category: "basmati", variety: "white", name: "Basmati", time: 15, waterRatio: 2.0, svg: basmatiSvg, svgPressed: basmatiTSvg },
   { category: "sushi", variety: "white", name: "Sushi", time: 20, waterRatio: 1.0, svg: sushiSvg, svgPressed: sushiTSvg },
