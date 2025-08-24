@@ -50,7 +50,7 @@ export default function Home() {
 
           {/* Main Action Button - Sharp Button */}
           <div className="w-[220px] h-[60px]">
-            <Link to="/cooking">
+            <Link to="/cooking?from=home">
               <div 
                 className="w-[200px] h-[52px] mx-auto relative"
                 onMouseDown={() => setIsButtonPressed(true)}

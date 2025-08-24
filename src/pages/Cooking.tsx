@@ -321,6 +321,21 @@ export default function CookingPage() {
   useEffect(() => {
     if (hasInitialized) return; // Prevent multiple initializations
     
+    // Check if we're coming from home page using URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const isFromHomePage = urlParams.get('from') === 'home';
+    
+    if (isFromHomePage) {
+      // Always start fresh when coming from home page
+      setStage('select_rice');
+      setSelectedRice(null);
+      setIsRunning(false);
+      setTimeRemaining(0);
+      setHasInitialized(true);
+      return;
+    }
+    
+    // Only restore timer if we're not coming from home page
     const savedTimer = localStorage.getItem('riceyTimer');
     if (savedTimer) {
       try {
