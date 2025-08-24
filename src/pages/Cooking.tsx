@@ -9,8 +9,8 @@ import minusFalseSvg from "../assets/-=false.svg";
 import minusTrueSvg from "../assets/-=true.svg";
 import waterNeed2Svg from "../assets/water-need2.svg";
 import sharpButtonSvg from "../assets/Sharp Button.svg";
-import typeFalseSvg from "../assets/type=false.svg";
-import typeTrueSvg from "../assets/type=true.svg";
+import typeFalseSvg from "../assets/type=false2.svg";
+import typeTrueSvg from "../assets/type=true2.svg";
 import jasmineSvg from "../assets/jasmine.svg";
 import jasmineTSvg from "../assets/jasmine-t.svg";
 import basmatiSvg from "../assets/basmati.svg";
@@ -26,7 +26,7 @@ import shortTSvg from "../assets/short-t.svg";
 import cookFalseSvg from "../assets/cook=false.svg";
 import cookTrueSvg from "../assets/cook=true.svg";
 import pauseFalseSvg from "../assets/pause=false.svg";
-import playFalseSvg from "../assets/play=false.svg";
+import playSvg from "../assets/Play.svg";
 import timerSvg from "../assets/timer.svg";
 import timerFalseSvg from "../assets/timer=false.svg";
 import timerTrueSvg from "../assets/timer=true.svg";
@@ -386,26 +386,31 @@ export default function CookingPage() {
             <div className="grid grid-cols-2 gap-2" style={{ width: '100%', height: '180px' }}>
               {riceOptions.map((option, index) => (
                 <div key={option.name} className="flex items-center justify-center p-1">
-                  <img 
-                    src={pressedRiceButton === option.name ? option.svgPressed : option.svg} 
-                    alt={option.name}
-                    onClick={() => handleSelectRice(option)}
-                    className="w-[120px] h-[52px] cursor-pointer touch-manipulation active:scale-95"
-                    style={{ 
-                      imageRendering: 'crisp-edges'
-                    }}
-                    onTouchStart={(e) => {
-                      setPressedRiceButton(option.name);
-                      e.currentTarget.style.transform = 'scale(0.95)';
-                    }}
-                    onTouchEnd={(e) => {
-                      setPressedRiceButton(null);
-                      e.currentTarget.style.transform = 'scale(1)';
-                    }}
-                    onMouseDown={() => setPressedRiceButton(option.name)}
-                    onMouseUp={() => setPressedRiceButton(null)}
-                    onMouseLeave={() => setPressedRiceButton(null)}
-                  />
+                  <div className="relative">
+                    <img 
+                      src={pressedRiceButton === option.name ? typeTrueSvg : typeFalseSvg} 
+                      alt={option.name}
+                      onClick={() => handleSelectRice(option)}
+                      className="w-[120px] h-[52px] cursor-pointer touch-manipulation active:scale-95"
+                      style={{ 
+                        imageRendering: 'crisp-edges'
+                      }}
+                      onTouchStart={(e) => {
+                        setPressedRiceButton(option.name);
+                        e.currentTarget.style.transform = 'scale(0.95)';
+                      }}
+                      onTouchEnd={(e) => {
+                        setPressedRiceButton(null);
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }}
+                      onMouseDown={() => setPressedRiceButton(option.name)}
+                      onMouseUp={() => setPressedRiceButton(null)}
+                      onMouseLeave={() => setPressedRiceButton(null)}
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                      <span className="text-black font-code text-sm font-bold">{option.name}</span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -576,6 +581,9 @@ export default function CookingPage() {
                       transform: 'translateZ(0)'
                     }}
                   />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span className="text-white font-pixel text-lg font-bold">start cooking</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -698,7 +706,7 @@ export default function CookingPage() {
                       }}
                     >
                       <img 
-                        src={playFalseSvg} 
+                        src={playSvg} 
                         alt="Play" 
                         className="w-full h-full" 
                       />

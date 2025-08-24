@@ -68,6 +68,9 @@ export default function Home() {
                     transform: 'translateZ(0)'
                   }}
                 />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <span className="text-white font-pixel text-lg font-bold">let's cook rice</span>
+                </div>
               </div>
             </Link>
           </div>

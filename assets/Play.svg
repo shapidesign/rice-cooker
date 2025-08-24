@@ -1,29 +1,27 @@
-<svg width="72" height="71" viewBox="0 0 72 71" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g filter="url(#filter0_d_10_522)">
-<rect x="4" y="2.26562" width="64" height="64" fill="#0AC285"/>
-<rect x="4" y="2.26562" width="64" height="64" fill="url(#pattern0_10_522)" fill-opacity="0.2"/>
-<rect x="5" y="3.26562" width="62" height="62" stroke="black" stroke-width="2"/>
-<rect x="9" y="7.26562" width="54" height="54" fill="url(#pattern2_10_522)"/>
+<svg width="69" height="70" viewBox="0 0 69 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_10_507)">
+<rect x="3.64998" y="1.76465" width="62.7" height="64.4708" fill="#0AC285"/>
+<rect x="4.47498" y="2.58965" width="61.05" height="62.8208" stroke="black" stroke-width="1.65"/>
+<rect x="53.15" y="36.048" width="6.14604" height="4.21667" transform="rotate(-180 53.15 36.048)" fill="black"/>
+<rect x="47.004" y="31.8314" width="6.14604" height="4.21667" transform="rotate(-180 47.004 31.8314)" fill="black"/>
+<rect x="40.8579" y="27.6147" width="6.14604" height="4.21667" transform="rotate(-180 40.8579 27.6147)" fill="black"/>
+<rect x="34.7119" y="23.398" width="6.14604" height="4.21667" transform="rotate(-180 34.7119 23.398)" fill="black"/>
+<rect x="28.5659" y="19.1813" width="6.14604" height="4.21667" transform="rotate(-180 28.5659 19.1813)" fill="black"/>
+<rect x="16.85" y="52.9147" width="37.95" height="4.2254" transform="rotate(-90 16.85 52.9147)" fill="black"/>
+<rect width="6.14604" height="4.21667" transform="matrix(-1 8.72422e-08 8.76037e-08 1 47.004 36.048)" fill="black"/>
+<rect width="6.14604" height="4.21667" transform="matrix(-1 8.72422e-08 8.76037e-08 1 40.8579 40.2647)" fill="black"/>
+<rect width="6.14604" height="4.21667" transform="matrix(-1 8.72421e-08 8.76038e-08 1 34.7119 44.4814)" fill="black"/>
+<rect width="6.14604" height="4.21667" transform="matrix(-1 8.72421e-08 8.76038e-08 1 28.5659 48.6981)" fill="black"/>
 </g>
 <defs>
-<filter id="filter0_d_10_522" x="0" y="2.26562" width="68" height="68" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_d_10_507" x="0.349979" y="1.76465" width="66" height="67.7708" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="-4" dy="4"/>
+<feOffset dx="-3.3" dy="3.3"/>
 <feComposite in2="hardAlpha" operator="out"/>
 <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_10_522"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_10_522" result="shape"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_10_507"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_10_507" result="shape"/>
 </filter>
-<pattern id="pattern2_10_522" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image1_10_522" transform="scale(0.015625)"/>
-</pattern>
-<image id="image1_10_522" width="64" height="64" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAlUlEQVR4nO3UwQ3EIBAEwck/6XEESFjW+QBXS/tmtx4kkiRJ0t16c46rAAKgADJ94HEwBRAABZDHh2wLUwABUAD52cLLwxRAABRAXl9sGZgCCIACyDKf0+swBRAABRCfYAEEQP/47rEAXeXQUQACIADyfLHlDx0FIAACIPMLb3voKAABEACZn+MqgADolwEkSZKUjbsAunDGSBGLW7kAAAAASUVORK5CYII="/>
-<pattern id="pattern0_10_522" patternUnits="userSpaceOnUse" viewBox="-2123 -305 125 125" width="195.3125%" height="195.3125%" patternContentUnits="objectBoundingBox">
-<rect width="125" height="125" transform="translate(-2123 -305)" fill="url(#pattern1_10_522)"/>
-</pattern><pattern id="pattern1_10_522" patternContentUnits="objectBoundingBox" width="0.064" height="0.064">
-<use xlink:href="#image0_10_522" transform="scale(0.008)"/>
-</pattern>
-<image id="image0_10_522" width="8" height="8" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAAXNSR0IArs4c6QAAABdJREFUGBljYMADpk+f/h+n9DCSBPoRAGVNFiE1BkVsAAAAAElFTkSuQmCC"/>
 </defs>
 </svg>
