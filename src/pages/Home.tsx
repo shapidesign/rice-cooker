@@ -32,7 +32,7 @@ export default function Home() {
 
       {/* Top Logo - Frame 12 */}
       <div className="absolute top-8 right-8 z-10">
-        <img src={riceyLogo} alt="Ricey Logo" className="w-7 h-11" />
+        <img src={riceyLogo} alt="Ricey Logo" className="w-[48px] h-[48px] object-contain" style={{ imageRendering: 'crisp-edges' }} />
       </div>
 
       {/* Main Content - Frame 2 */}

@@ -392,7 +392,10 @@ export default function CookingPage() {
                     alt={option.name}
                     onClick={() => handleSelectRice(option)}
                     className="w-[120px] h-[52px] cursor-pointer touch-manipulation active:scale-95"
-                    style={{ imageRendering: 'crisp-edges' }}
+                    style={{ 
+                      imageRendering: 'crisp-edges',
+                      filter: pressedRiceButton === option.name ? 'drop-shadow(-6px 6px 0px #000000)' : 'drop-shadow(-4px 4px 0px #000000)'
+                    }}
                     onTouchStart={(e) => {
                       setPressedRiceButton(option.name);
                       e.currentTarget.style.transform = 'scale(0.95)';
