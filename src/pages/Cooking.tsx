@@ -73,6 +73,7 @@ export default function CookingPage() {
   const [pressedRiceButton, setPressedRiceButton] = useState<string | null>(null);
   const [currentTip, setCurrentTip] = useState(0);
   const [riceProgress, setRiceProgress] = useState(0);
+  const [hasInitialized, setHasInitialized] = useState(false);
 
 
   // 100 Cooking Tips
@@ -316,6 +317,8 @@ export default function CookingPage() {
 
   // Restore timer state when component mounts
   useEffect(() => {
+    if (hasInitialized) return; // Prevent multiple initializations
+    
     const savedTimer = localStorage.getItem('riceyTimer');
     if (savedTimer) {
       try {
@@ -346,13 +349,29 @@ export default function CookingPage() {
           }
         } else {
           localStorage.removeItem('riceyTimer');
+          setStage('select_rice');
+          setSelectedRice(null);
+          setIsRunning(false);
+          setTimeRemaining(0);
         }
       } catch (error) {
         console.error('Error restoring timer:', error);
         localStorage.removeItem('riceyTimer');
+        setStage('select_rice');
+        setSelectedRice(null);
+        setIsRunning(false);
+        setTimeRemaining(0);
       }
+    } else {
+      // If no saved timer, ensure we start at rice selection
+      setStage('select_rice');
+      setSelectedRice(null);
+      setIsRunning(false);
+      setTimeRemaining(0);
     }
-  }, []);
+    
+    setHasInitialized(true);
+  }, [hasInitialized]);
 
   // Handle page visibility changes (tab switching, app switching)
   useEffect(() => {
