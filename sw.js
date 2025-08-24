@@ -39,6 +39,51 @@ function updateTimer() {
   return Promise.resolve();
 }
 
+// Handle background timer updates
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'TIMER_UPDATE') {
+    const { timeRemaining, totalTime, selectedRice, startTime } = event.data;
+    
+    // Store timer data in IndexedDB for persistence
+    const timerData = {
+      timeRemaining,
+      totalTime,
+      selectedRice,
+      startTime,
+      lastUpdate: Date.now()
+    };
+    
+    // Update timer state
+    self.timerData = timerData;
+  }
+});
+
+// Periodic background timer check
+setInterval(() => {
+  if (self.timerData && self.timerData.timeRemaining > 0) {
+    const now = Date.now();
+    const elapsed = Math.floor((now - self.timerData.startTime) / 1000);
+    const remaining = Math.max(0, self.timerData.totalTime - elapsed);
+    
+    if (remaining <= 0) {
+      // Timer completed - show notification
+      self.registration.showNotification('Ricey Timer', {
+        body: 'Your rice is ready! 🍚',
+        icon: '/logo192.png',
+        badge: '/logo192.png',
+        vibrate: [200, 100, 200],
+        requireInteraction: true
+      });
+      
+      // Clear timer data
+      self.timerData = null;
+    } else {
+      // Update remaining time
+      self.timerData.timeRemaining = remaining;
+    }
+  }
+}, 1000);
+
 // Handle timer notifications
 self.addEventListener('push', event => {
   const options = {
