@@ -17,6 +17,8 @@ export default function Home() {
             image-rendering: crisp-edges;
             image-rendering: -webkit-optimize-contrast;
             image-rendering: pixelated;
+            transform: translateZ(0);
+            backface-visibility: hidden;
           }
         `}
       </style>
@@ -51,7 +53,7 @@ export default function Home() {
           <div className="w-[207px] h-[50.63px]">
             <Link to="/cooking">
               <div 
-                className="w-[159px] h-[38px] mx-auto relative"
+                className="w-[163px] h-[42px] mx-auto relative"
                 onMouseDown={() => setIsButtonPressed(true)}
                 onMouseUp={() => setIsButtonPressed(false)}
                 onMouseLeave={() => setIsButtonPressed(false)}
@@ -63,7 +65,8 @@ export default function Home() {
                   alt="Let's Cook!" 
                   className="w-full h-full cursor-pointer"
                   style={{ 
-                    imageRendering: 'crisp-edges'
+                    imageRendering: 'crisp-edges',
+                    transform: 'translateZ(0)'
                   }}
                 />
               </div>

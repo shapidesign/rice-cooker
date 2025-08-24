@@ -329,6 +329,8 @@ export default function CookingPage() {
             image-rendering: crisp-edges;
             image-rendering: -webkit-optimize-contrast;
             image-rendering: pixelated;
+            transform: translateZ(0);
+            backface-visibility: hidden;
           }
         `}
       </style>
@@ -535,7 +537,7 @@ export default function CookingPage() {
                </div>
 
               {/* Start Cooking Button - Sharp Button */}
-              <div className="w-[159px] h-[38px] mx-auto">
+              <div className="w-[163px] h-[42px] mx-auto">
                 <div
                   className="w-full h-full relative cursor-pointer touch-manipulation active:scale-95 transition-transform"
                   onMouseEnter={() => setIsButtonPressed(true)}
@@ -555,7 +557,8 @@ export default function CookingPage() {
                     alt="Start Cooking" 
                     className="w-full h-full" 
                     style={{ 
-                      imageRendering: 'crisp-edges'
+                      imageRendering: 'crisp-edges',
+                      transform: 'translateZ(0)'
                     }}
                   />
                 </div>
