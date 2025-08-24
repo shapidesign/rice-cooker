@@ -66,7 +66,8 @@ export default function Home() {
                   className="w-full h-full cursor-pointer"
                   style={{ 
                     imageRendering: 'crisp-edges',
-                    transform: 'translateZ(0)'
+                    transform: 'translateZ(0)',
+                    filter: isButtonPressed ? 'drop-shadow(-6px 6px 0px #000000)' : 'drop-shadow(-4px 4px 0px #000000)'
                   }}
                 />
               </div>
