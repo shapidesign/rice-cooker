@@ -536,17 +536,15 @@ export default function CookingPage() {
                 <div className="text-lg text-black text-center">serves {Math.ceil(cups * 2)}-{Math.ceil(cups * 3)}</div>
               </div>
 
-              {/* Water Needed Label */}
-              <div className="text-xl text-black text-center">water needed:</div>
-
-                             {/* Water Needed - Frame 8 */}
+              {/* Water Needed - Frame 8 */}
                <div className="w-full h-[100px] flex items-center justify-center" style={{
                  background: `linear-gradient(rgba(255, 221, 0, 0.8), rgba(255, 221, 0, 0.8)), url(${pattern8pxSvg})`,
                  backgroundRepeat: 'repeat',
                  border: '3.74px solid black',
                  boxShadow: '-4px 4px 0px #000000'
                }}>
-                 <div className="w-[197px] h-[58px] flex items-center justify-center">
+                 <div className="w-[197px] h-[58px] flex flex-col items-center justify-center space-y-2">
+                   <div className="text-xl text-black text-center">water needed:</div>
                    <div className="w-[192px] h-[58px] bg-[#D2D6D8] border-2 border-black shadow-[-5px_5px_0px_#000000] flex items-center justify-center" style={{
                      backgroundImage: `url(${pattern8pxSvg})`,
                      backgroundRepeat: 'repeat'
