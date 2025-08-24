@@ -26,7 +26,7 @@ import shortTSvg from "../assets/short-t.svg";
 import cookFalseSvg from "../assets/cook=false.svg";
 import cookTrueSvg from "../assets/cook=true.svg";
 import pauseFalseSvg from "../assets/pause=false.svg";
-import playSvg from "../assets/Play.svg";
+
 import timerSvg from "../assets/timer.svg";
 import timerFalseSvg from "../assets/timer=false.svg";
 import timerTrueSvg from "../assets/timer=true.svg";
@@ -703,11 +703,12 @@ export default function CookingPage() {
                         e.currentTarget.style.transform = 'scale(1)';
                       }}
                     >
-                      <img 
-                        src={playSvg} 
-                        alt="Play" 
-                        className="w-full h-full" 
-                      />
+                      <div 
+                        className="w-full h-full bg-[#0AC285] border-2 border-black shadow-[-3.3px_3.3px_0px_#000000] flex items-center justify-center cursor-pointer"
+                        style={{ imageRendering: 'crisp-edges' }}
+                      >
+                        <div className="w-0 h-0 border-l-[20px] border-l-black border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-2"></div>
+                      </div>
                     </div>
                     <div className="text-base text-black text-center w-full">play</div>
                   </div>
