@@ -481,6 +481,18 @@ export default function CookingPage() {
   const testAudio = async () => {
     console.log('Testing your MP3 file...');
     
+    // First, test if the file is accessible
+    try {
+      const response = await fetch(asianGongMusic);
+      if (response.ok) {
+        console.log('MP3 file is accessible!');
+      } else {
+        console.error('MP3 file not accessible:', response.status);
+      }
+    } catch (fetchError) {
+      console.error('Error fetching MP3 file:', fetchError);
+    }
+    
     // Test your MP3 file
     try {
       const audio = new Audio(asianGongMusic);
@@ -541,14 +553,14 @@ export default function CookingPage() {
   };
 
   const handleTimerComplete = async () => {
-    console.log('Timer completed! Playing audio...');
+    console.log('Timer completed! Playing your MP3...');
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     
-    // Play gong sound with multiple fallbacks
-    const playGongSound = async () => {
+    // Play your MP3 with multiple fallbacks
+    const playMP3Sound = async () => {
       try {
-        console.log('Attempting to play gong sound...');
+        console.log('Attempting to play your MP3...');
         const audio = new Audio(asianGongMusic);
         
         // Set audio properties for better compatibility
@@ -556,25 +568,25 @@ export default function CookingPage() {
         audio.preload = 'auto';
         
         // Add event listeners for debugging
-        audio.addEventListener('loadstart', () => console.log('Audio loading started'));
-        audio.addEventListener('canplay', () => console.log('Audio can play'));
-        audio.addEventListener('play', () => console.log('Audio started playing'));
-        audio.addEventListener('ended', () => console.log('Audio ended'));
-        audio.addEventListener('error', (e) => console.error('Audio error:', e));
+        audio.addEventListener('loadstart', () => console.log('MP3 loading started'));
+        audio.addEventListener('canplay', () => console.log('MP3 can play'));
+        audio.addEventListener('play', () => console.log('MP3 started playing'));
+        audio.addEventListener('ended', () => console.log('MP3 ended'));
+        audio.addEventListener('error', (e) => console.error('MP3 error:', e));
         
         // Try to play the audio
         await audio.play();
-        console.log('First gong sound played successfully');
+        console.log('First MP3 played successfully');
         
-        // Play second gong after a short delay
+        // Play second MP3 after a short delay
         setTimeout(async () => {
           try {
             const audio2 = new Audio(asianGongMusic);
             audio2.volume = 1.0;
             await audio2.play();
-            console.log('Second gong sound played successfully');
+            console.log('Second MP3 played successfully');
           } catch (error) {
-            console.error('Error playing second gong:', error);
+            console.error('Error playing second MP3:', error);
             
             // Fallback to beep for second sound
             try {
@@ -587,7 +599,7 @@ export default function CookingPage() {
         }, 500);
         
       } catch (error) {
-        console.error('Error playing gong sound:', error);
+        console.error('Error playing MP3:', error);
         
         // Fallback to beep sounds
         try {
@@ -610,7 +622,7 @@ export default function CookingPage() {
     };
     
     // Play the sound
-    await playGongSound();
+    await playMP3Sound();
     
     // Show notification when timer completes
     if ('Notification' in window && Notification.permission === 'granted') {
