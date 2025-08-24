@@ -336,7 +336,6 @@ export default function CookingPage() {
           img {
             image-rendering: crisp-edges;
             image-rendering: -webkit-optimize-contrast;
-            image-rendering: pixelated;
             transform: translateZ(0);
             backface-visibility: hidden;
           }
@@ -393,8 +392,7 @@ export default function CookingPage() {
                     onClick={() => handleSelectRice(option)}
                     className="w-[120px] h-[52px] cursor-pointer touch-manipulation active:scale-95"
                     style={{ 
-                      imageRendering: 'crisp-edges',
-                      filter: pressedRiceButton === option.name ? 'drop-shadow(-6px 6px 0px #000000)' : 'drop-shadow(-4px 4px 0px #000000)'
+                      imageRendering: 'crisp-edges'
                     }}
                     onTouchStart={(e) => {
                       setPressedRiceButton(option.name);
@@ -575,8 +573,7 @@ export default function CookingPage() {
                     className="w-full h-full" 
                     style={{ 
                       imageRendering: 'crisp-edges',
-                      transform: 'translateZ(0)',
-                      filter: isButtonPressed ? 'drop-shadow(-6px 6px 0px #000000)' : 'drop-shadow(-4px 4px 0px #000000)'
+                      transform: 'translateZ(0)'
                     }}
                   />
                 </div>
