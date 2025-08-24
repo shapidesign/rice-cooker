@@ -74,6 +74,7 @@ export default function CookingPage() {
   const [currentTip, setCurrentTip] = useState(0);
   const [riceProgress, setRiceProgress] = useState(0);
   const [hasInitialized, setHasInitialized] = useState(false);
+  const [audioReady, setAudioReady] = useState(false);
 
 
   // 100 Cooking Tips
@@ -431,6 +432,12 @@ export default function CookingPage() {
 
 
   const handleSelectRice = (riceOption: RiceOption) => {
+    // Enable audio on user interaction
+    if (!audioReady) {
+      const audio = new Audio(asianGongMusic);
+      audio.load();
+      setAudioReady(true);
+    }
     setSelectedRice(riceOption);
     setStage('set_amount');
   };
@@ -450,6 +457,13 @@ export default function CookingPage() {
       });
     }
     
+    // Preload audio for timer completion
+    if (!audioReady) {
+      const audio = new Audio(asianGongMusic);
+      audio.load();
+      setAudioReady(true);
+    }
+    
     const timeInSeconds = selectedRice.time * 60;
     setTotalTime(timeInSeconds);
     setTimeRemaining(timeInSeconds);
@@ -461,6 +475,36 @@ export default function CookingPage() {
   const handleTimerComplete = async () => {
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+    
+    // Play gong sound twice with overlap
+    try {
+      const audio1 = new Audio(asianGongMusic);
+      const audio2 = new Audio(asianGongMusic);
+      
+      // Set volume and ensure it can play over other audio
+      audio1.volume = 1.0;
+      audio2.volume = 1.0;
+      
+      // Play first gong
+      await audio1.play();
+      
+      // Play second gong when first one ends
+      audio1.addEventListener('ended', () => {
+        audio2.play().catch(error => {
+          console.error('Error playing second gong:', error);
+        });
+      });
+      
+      // Also try to play immediately for better reliability
+      setTimeout(() => {
+        audio2.play().catch(error => {
+          console.error('Error playing second gong (delayed):', error);
+        });
+      }, 1000);
+      
+    } catch (error) {
+      console.error('Error playing gong sound:', error);
+    }
     
     // Show notification when timer completes
     if ('Notification' in window && Notification.permission === 'granted') {
