@@ -599,7 +599,7 @@ export default function CookingPage() {
               </div>
 
               {/* Water Needed - Frame 8 */}
-               <div className="w-full h-[100px] flex items-center justify-center" style={{
+               <div className="w-full h-[120px] flex items-center justify-center" style={{
                  background: `linear-gradient(rgba(255, 221, 0, 0.8), rgba(255, 221, 0, 0.8)), url(${pattern8pxSvg})`,
                  backgroundRepeat: 'repeat',
                  border: '3.74px solid black',
@@ -690,7 +690,7 @@ export default function CookingPage() {
             <div className="flex flex-col space-y-8">
               {/* Title - Frame 4 */}
               <div className="w-[267px] h-[96px] flex flex-col space-y-1 mx-auto">
-                <div className="text-4xl font-normal text-black text-center">we're cooking some rice</div>
+                <div className="text-4xl font-normal text-black text-center">we're cooking some {selectedRice?.name.toLowerCase()} rice</div>
               </div>
 
                               {/* Timer and Controls - Frame 9 */}
@@ -699,7 +699,7 @@ export default function CookingPage() {
                   <div className="w-[224px] h-[103px] flex items-center justify-center animate-bounce relative overflow-hidden" style={{
                     animation: 'bounce 2s infinite'
                   }}>
-                    <div className="w-[209px] h-[96px] bg-[#FD0] border-[3.7px] border-black shadow-[-4px_4px_0px_#000000] flex items-center justify-center relative overflow-hidden">
+                    <div className="w-[209px] h-[96px] bg-[#FD0] border-[3.7px] border-black flex items-center justify-center relative overflow-hidden">
                       {/* Rice Progress Fill */}
                       <div 
                         className="absolute bottom-0 left-0 bg-[#F5DEB3] transition-all duration-300 ease-out"
@@ -733,9 +733,9 @@ export default function CookingPage() {
                 {/* Play/Pause Controls */}
                 <div className="w-full max-w-[224px] h-[70px] flex justify-between items-center">
                   {/* Pause Button */}
-                  <div className="w-[70px] h-[70px] flex flex-col items-center space-y-1">
+                  <div className="w-[68px] h-[68px] flex flex-col items-center space-y-1">
                     <div 
-                      className="w-[70px] h-[70px] cursor-pointer touch-manipulation active:scale-95 transition-transform"
+                      className="w-[68px] h-[68px] cursor-pointer touch-manipulation active:scale-95 transition-transform"
                       onClick={() => setIsRunning(false)}
                       onTouchStart={(e) => {
                         e.currentTarget.style.transform = 'scale(0.95)';
@@ -754,9 +754,9 @@ export default function CookingPage() {
                   </div>
 
                   {/* Play Button */}
-                  <div className="w-[70px] h-[70px] flex flex-col items-center space-y-1">
+                  <div className="w-[68px] h-[68px] flex flex-col items-center space-y-1">
                     <div 
-                      className="w-[70px] h-[70px] cursor-pointer touch-manipulation active:scale-95 transition-transform"
+                      className="w-[68px] h-[68px] cursor-pointer touch-manipulation active:scale-95 transition-transform"
                       onClick={() => setIsRunning(true)}
                       onTouchStart={(e) => {
                         e.currentTarget.style.transform = 'scale(0.95)';
@@ -784,10 +784,10 @@ export default function CookingPage() {
               {/* Tip Section - Frame 10 */}
               <div className="w-full flex flex-col space-y-6 items-center">
                 {/* Tip Button */}
-                <div className="w-[141px] h-[50px]">
+                <div className="w-[141px] h-[50px] relative">
                   <img 
-                    src={tipSvg} 
-                    alt="Tip" 
+                    src={typeFalseSvg} 
+                    alt="Rice Tips" 
                     className="w-full h-full cursor-pointer touch-manipulation active:scale-95 transition-transform" 
                     onClick={() => setCurrentTip((prev) => (prev + 1) % cookingTips.length)}
                     onTouchStart={(e) => {
@@ -797,6 +797,9 @@ export default function CookingPage() {
                       e.currentTarget.style.transform = 'scale(1)';
                     }}
                   />
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <span className="text-black font-code text-sm font-bold">rice tips</span>
+                  </div>
                 </div>
 
                 {/* Tip Content */}
