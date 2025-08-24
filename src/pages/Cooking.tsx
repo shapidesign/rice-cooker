@@ -12,11 +12,17 @@ import sharpButtonSvg from "../assets/Sharp Button.svg";
 import typeFalseSvg from "../assets/type=false.svg";
 import typeTrueSvg from "../assets/type=true.svg";
 import jasmineSvg from "../assets/jasmine.svg";
+import jasmineTSvg from "../assets/jasmine-t.svg";
 import basmatiSvg from "../assets/basmati.svg";
+import basmatiTSvg from "../assets/basmati-t.svg";
 import sushiSvg from "../assets/sushi.svg";
+import sushiTSvg from "../assets/sushi-t.svg";
 import arborioSvg from "../assets/arborio.svg";
+import arborioTSvg from "../assets/arborio-t.svg";
 import wholeSvg from "../assets/whole.svg";
+import wholeTSvg from "../assets/whole-t.svg";
 import shortSvg from "../assets/short.svg";
+import shortTSvg from "../assets/short-t.svg";
 import cookFalseSvg from "../assets/cook=false.svg";
 import cookTrueSvg from "../assets/cook=true.svg";
 import pauseFalseSvg from "../assets/pause=false.svg";
@@ -30,12 +36,12 @@ import pattern8pxSvg from "../assets/8px.svg";
 const asianGongMusic = "/asian-gong-music.mp3";
 
 const riceOptions = [
-  { category: "jasmine", variety: "white", name: "Jasmine", time: 12, waterRatio: 1.5, svg: jasmineSvg },
-  { category: "basmati", variety: "white", name: "Basmati", time: 15, waterRatio: 2.0, svg: basmatiSvg },
-  { category: "sushi", variety: "white", name: "Sushi", time: 20, waterRatio: 1.0, svg: sushiSvg },
-  { category: "arborio", variety: "white", name: "Arborio", time: 20, waterRatio: 2.0, svg: arborioSvg },
-  { category: "brown", variety: "brown", name: "Whole", time: 30, waterRatio: 2.0, svg: wholeSvg },
-  { category: "short_grain", variety: "white", name: "Short", time: 20, waterRatio: 1.25, svg: shortSvg }
+  { category: "jasmine", variety: "white", name: "Jasmine", time: 12, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
+  { category: "basmati", variety: "white", name: "Basmati", time: 15, waterRatio: 2.0, svg: basmatiSvg, svgPressed: basmatiTSvg },
+  { category: "sushi", variety: "white", name: "Sushi", time: 20, waterRatio: 1.0, svg: sushiSvg, svgPressed: sushiTSvg },
+  { category: "arborio", variety: "white", name: "Arborio", time: 20, waterRatio: 2.0, svg: arborioSvg, svgPressed: arborioTSvg },
+  { category: "brown", variety: "brown", name: "Whole", time: 30, waterRatio: 2.0, svg: wholeSvg, svgPressed: wholeTSvg },
+  { category: "short_grain", variety: "white", name: "Short", time: 20, waterRatio: 1.25, svg: shortSvg, svgPressed: shortTSvg }
 ];
 
 interface RiceOption {
@@ -45,6 +51,7 @@ interface RiceOption {
   time: number;
   waterRatio: number;
   svg: string;
+  svgPressed: string;
 }
 
 export default function CookingPage() {
@@ -61,6 +68,7 @@ export default function CookingPage() {
   const [isMinusPressed, setIsMinusPressed] = useState(false);
   const [isChooseBackPressed, setIsChooseBackPressed] = useState(false);
   const [isButtonPressed, setIsButtonPressed] = useState(false);
+  const [pressedRiceButton, setPressedRiceButton] = useState<string | null>(null);
   const [currentTip, setCurrentTip] = useState(0);
   const [riceProgress, setRiceProgress] = useState(0);
 
@@ -380,17 +388,22 @@ export default function CookingPage() {
               {riceOptions.map((option, index) => (
                 <div key={option.name} className="flex items-center justify-center p-1">
                   <img 
-                    src={option.svg} 
+                    src={pressedRiceButton === option.name ? option.svgPressed : option.svg} 
                     alt={option.name}
                     onClick={() => handleSelectRice(option)}
-                    className="w-full h-full max-w-[140px] max-h-[58px] cursor-pointer hover:opacity-80 transition-opacity touch-manipulation active:scale-95"
+                    className="w-[120px] h-[52px] cursor-pointer touch-manipulation active:scale-95"
                     style={{ imageRendering: 'crisp-edges' }}
                     onTouchStart={(e) => {
+                      setPressedRiceButton(option.name);
                       e.currentTarget.style.transform = 'scale(0.95)';
                     }}
                     onTouchEnd={(e) => {
+                      setPressedRiceButton(null);
                       e.currentTarget.style.transform = 'scale(1)';
                     }}
+                    onMouseDown={() => setPressedRiceButton(option.name)}
+                    onMouseUp={() => setPressedRiceButton(null)}
+                    onMouseLeave={() => setPressedRiceButton(null)}
                   />
                 </div>
               ))}
@@ -413,7 +426,7 @@ export default function CookingPage() {
           {/* Header - Frame 12 */}
           <div className="absolute top-8 left-8 right-8 flex justify-between items-center">
             <div
-              className="w-[68px] h-[68px] relative cursor-pointer"
+              className="w-[48px] h-[48px] relative cursor-pointer"
               onMouseDown={() => setIsBackPressed(true)}
               onMouseUp={() => setIsBackPressed(false)}
               onMouseLeave={() => setIsBackPressed(false)}
@@ -425,10 +438,11 @@ export default function CookingPage() {
                 src={isBackPressed ? backTrueSvg : backFalseSvg} 
                 alt="Back" 
                 className="w-full h-full" 
+                style={{ imageRendering: 'crisp-edges' }}
               />
             </div>
-            <div className="w-[68px] h-[68px]">
-              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full object-contain" />
+            <div className="w-[48px] h-[48px]">
+              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full object-contain" style={{ imageRendering: 'crisp-edges' }} />
             </div>
           </div>
 
@@ -583,7 +597,7 @@ export default function CookingPage() {
           {/* Header - Frame 12 */}
           <div className="absolute top-8 left-8 right-8 flex justify-between items-center">
             <div
-              className="w-[68px] h-[68px] relative cursor-pointer"
+              className="w-[48px] h-[48px] relative cursor-pointer"
               onMouseDown={() => setIsBackPressed(true)}
               onMouseUp={() => setIsBackPressed(false)}
               onMouseLeave={() => setIsBackPressed(false)}
@@ -595,10 +609,11 @@ export default function CookingPage() {
                 src={isBackPressed ? backTrueSvg : backFalseSvg} 
                 alt="Back" 
                 className="w-full h-full" 
+                style={{ imageRendering: 'crisp-edges' }}
               />
             </div>
-            <div className="w-[68px] h-[68px]">
-              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full object-contain" />
+            <div className="w-[48px] h-[48px]">
+              <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full object-contain" style={{ imageRendering: 'crisp-edges' }} />
             </div>
           </div>
 
