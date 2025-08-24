@@ -479,25 +479,25 @@ export default function CookingPage() {
 
   // Test function to manually trigger audio
   const testAudio = async () => {
-    console.log('Testing audio manually...');
+    console.log('Testing your MP3 file...');
     
-    // Try the gong sound first
+    // Test your MP3 file
     try {
       const audio = new Audio(asianGongMusic);
       audio.volume = 1.0;
       audio.preload = 'auto';
       
       // Add event listeners for debugging
-      audio.addEventListener('loadstart', () => console.log('Audio loading started'));
-      audio.addEventListener('canplay', () => console.log('Audio can play'));
-      audio.addEventListener('play', () => console.log('Audio started playing'));
-      audio.addEventListener('ended', () => console.log('Audio ended'));
-      audio.addEventListener('error', (e) => console.error('Audio error:', e));
+      audio.addEventListener('loadstart', () => console.log('MP3 loading started'));
+      audio.addEventListener('canplay', () => console.log('MP3 can play'));
+      audio.addEventListener('play', () => console.log('MP3 started playing'));
+      audio.addEventListener('ended', () => console.log('MP3 ended'));
+      audio.addEventListener('error', (e) => console.error('MP3 error:', e));
       
       await audio.play();
-      console.log('Gong sound played successfully');
+      console.log('Your MP3 played successfully!');
     } catch (error) {
-      console.error('Gong sound failed:', error);
+      console.error('MP3 failed:', error);
       
       // Fallback to beep sound
       try {
@@ -705,7 +705,7 @@ export default function CookingPage() {
               onClick={testAudio}
               className="px-4 py-2 bg-yellow-400 border-2 border-black text-black font-bold rounded shadow-lg hover:bg-yellow-300"
             >
-              Test Audio
+              Test Your MP3
             </button>
           </div>
 
