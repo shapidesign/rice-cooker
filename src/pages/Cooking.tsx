@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import backFalseSvg from "../assets/back=false.svg";
-import backTrueSvg from "../assets/back=true.svg";
+import backFalseSvg from "../assets/back-false.svg";
+import backTrueSvg from "../assets/back-rtue.svg";
 import riceyLogoSvg from "../assets/ricey-logo2.svg";
 import plusFalseSvg from "../assets/+=false.svg";
 import plusTrueSvg from "../assets/+=true.svg";
@@ -356,7 +356,7 @@ export default function CookingPage() {
           <div className="absolute top-8 left-8 right-8 flex justify-between items-center">
             <Link to="/">
               <div 
-                className="w-12 h-12 relative"
+                className="w-[48px] h-[48px] relative"
                 onMouseDown={() => setIsChooseBackPressed(true)}
                 onMouseUp={() => setIsChooseBackPressed(false)}
                 onMouseLeave={() => setIsChooseBackPressed(false)}
@@ -371,7 +371,7 @@ export default function CookingPage() {
                 />
               </div>
             </Link>
-            <div className="w-12 h-12">
+            <div className="w-[48px] h-[48px]">
               <img src={riceyLogoSvg} alt="Ricey Logo" className="w-full h-full object-contain" />
             </div>
           </div>
