@@ -490,11 +490,6 @@ export default function CookingPage() {
     if (!audioEnabled) {
       setAudioEnabled(true);
       console.log('Audio enabled on first user interaction');
-      
-      // Test audio immediately on mobile (very quiet)
-      const testAudio = new Audio(asianGongMusic);
-      testAudio.volume = 0.1; // Very quiet test
-      testAudio.play().catch(e => console.log('Test audio failed (expected on mobile):', e));
     }
     
     setSelectedRice(riceOption);
@@ -561,18 +556,49 @@ export default function CookingPage() {
           console.error('Error details:', audio.error);
         });
         
-        // Try to play with mobile fallback
+        // Mobile-specific approach: try multiple methods
+        let played = false;
+        
+        // Method 1: Direct play
         try {
           await audio.play();
-          console.log('MP3 played successfully');
-        } catch (playError) {
-          console.error('Direct play failed, trying mobile fallback:', playError);
-          
-          // Mobile fallback: try with user interaction simulation
-          const playPromise = audio.play();
-          if (playPromise !== undefined) {
-            await playPromise;
-            console.log('MP3 played successfully (mobile fallback)');
+          console.log('MP3 played successfully (direct)');
+          played = true;
+        } catch (error) {
+          console.log('Direct play failed, trying method 2:', error);
+        }
+        
+        // Method 2: Promise-based play (mobile fallback)
+        if (!played) {
+          try {
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+              await playPromise;
+              console.log('MP3 played successfully (promise method)');
+              played = true;
+            }
+          } catch (error) {
+            console.log('Promise play failed, trying method 3:', error);
+          }
+        }
+        
+        // Method 3: Delayed play (mobile autoplay workaround)
+        if (!played) {
+          try {
+            setTimeout(async () => {
+              try {
+                await audio.play();
+                console.log('MP3 played successfully (delayed method)');
+              } catch (error) {
+                console.log('Delayed play failed:', error);
+                // Final fallback to beep
+                createBeepSound();
+              }
+            }, 100);
+          } catch (error) {
+            console.log('Delayed play setup failed:', error);
+            // Final fallback to beep
+            createBeepSound();
           }
         }
         
