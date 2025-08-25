@@ -486,19 +486,12 @@ export default function CookingPage() {
 
 
   const handleSelectRice = (riceOption: RiceOption) => {
-    // Enable audio on user interaction
-    if (!audioReady) {
-      const audio = new Audio(asianGongMusic);
-      audio.load();
-      setAudioReady(true);
-    }
-    
     // Enable audio for mobile compatibility
     if (!audioEnabled) {
       setAudioEnabled(true);
       console.log('Audio enabled on first user interaction');
       
-      // Test audio immediately on mobile
+      // Test audio immediately on mobile (very quiet)
       const testAudio = new Audio(asianGongMusic);
       testAudio.volume = 0.1; // Very quiet test
       testAudio.play().catch(e => console.log('Test audio failed (expected on mobile):', e));
@@ -528,13 +521,8 @@ export default function CookingPage() {
       });
     }
     
-    // Preload audio for timer completion
-    if (!audioReady) {
-      const audio = new Audio(asianGongMusic);
-      audio.load();
-      setAudioReady(true);
-      console.log('Audio preloaded:', asianGongMusic);
-    }
+    // Note: Removed audio preloading to prevent doubled audio
+    console.log('Audio will be loaded when needed');
     
     const timeInSeconds = selectedRice.time * 60;
     setTotalTime(timeInSeconds);
@@ -549,18 +537,18 @@ export default function CookingPage() {
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     
-    // Mobile-friendly audio with user interaction requirement
+    // Use the same approach that works on mobile (like rice selection)
     const playMP3Sound = async () => {
       try {
         console.log('Attempting to play your MP3...');
         
-        // Check if we have user interaction
+        // Ensure audio is enabled (same as rice selection)
         if (!audioEnabled) {
-          console.log('No user interaction detected, trying to enable audio...');
           setAudioEnabled(true);
+          console.log('Audio enabled for timer completion');
         }
         
-        // Create audio element with mobile-friendly settings
+        // Create audio element (same approach as working rice selection)
         const audio = new Audio(asianGongMusic);
         audio.volume = 1.0;
         audio.preload = 'auto';
@@ -576,26 +564,11 @@ export default function CookingPage() {
           console.error('Error details:', audio.error);
         });
         
-        // Try to play the audio with user interaction check
-        try {
-          await audio.play();
-          console.log('MP3 played successfully');
-        } catch (playError) {
-          console.error('Play failed, trying alternative approach:', playError);
-          
-          // Alternative: Try with a small delay and user interaction
-          setTimeout(async () => {
-            try {
-              await audio.play();
-              console.log('MP3 played successfully (delayed)');
-            } catch (delayedError) {
-              console.error('Delayed play also failed:', delayedError);
-              throw delayedError;
-            }
-          }, 100);
-        }
+        // Play first time
+        await audio.play();
+        console.log('First MP3 played successfully');
         
-        // Play second time after delay
+        // Play second time after delay (prevent doubled audio by using separate instance)
         setTimeout(async () => {
           try {
             const audio2 = new Audio(asianGongMusic);
