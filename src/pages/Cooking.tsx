@@ -57,7 +57,7 @@ const createBeepSound = () => {
 };
 
 const riceOptions = [
-  { category: "jasmine", variety: "white", name: "Jasmine", time: 12, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
+  { category: "jasmine", variety: "white", name: "Jasmine", time: 0.17, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
   { category: "basmati", variety: "white", name: "Basmati", time: 15, waterRatio: 2.0, svg: basmatiSvg, svgPressed: basmatiTSvg },
   { category: "sushi", variety: "white", name: "Sushi", time: 20, waterRatio: 1.0, svg: sushiSvg, svgPressed: sushiTSvg },
   { category: "arborio", variety: "white", name: "Arborio", time: 20, waterRatio: 2.0, svg: arborioSvg, svgPressed: arborioTSvg },
