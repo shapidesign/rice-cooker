@@ -537,18 +537,15 @@ export default function CookingPage() {
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     
-    // Use the same approach that works on mobile (like rice selection)
+    // Mobile-friendly audio approach
     const playMP3Sound = async () => {
       try {
         console.log('Attempting to play your MP3...');
         
-        // Ensure audio is enabled (same as rice selection)
-        if (!audioEnabled) {
-          setAudioEnabled(true);
-          console.log('Audio enabled for timer completion');
-        }
+        // Force audio enable for mobile
+        setAudioEnabled(true);
         
-        // Create audio element (same approach as working rice selection)
+        // Create audio element with mobile-friendly settings
         const audio = new Audio(asianGongMusic);
         audio.volume = 1.0;
         audio.preload = 'auto';
@@ -564,29 +561,20 @@ export default function CookingPage() {
           console.error('Error details:', audio.error);
         });
         
-        // Play first time
-        await audio.play();
-        console.log('First MP3 played successfully');
-        
-        // Play second time after delay (prevent doubled audio by using separate instance)
-        setTimeout(async () => {
-          try {
-            const audio2 = new Audio(asianGongMusic);
-            audio2.volume = 1.0;
-            audio2.muted = false;
-            await audio2.play();
-            console.log('Second MP3 played successfully');
-          } catch (error) {
-            console.error('Error playing second MP3:', error);
-            // Fallback to beep
-            try {
-              createBeepSound();
-              console.log('Second beep sound played successfully');
-            } catch (beepError) {
-              console.error('Second beep sound also failed:', beepError);
-            }
+        // Try to play with mobile fallback
+        try {
+          await audio.play();
+          console.log('MP3 played successfully');
+        } catch (playError) {
+          console.error('Direct play failed, trying mobile fallback:', playError);
+          
+          // Mobile fallback: try with user interaction simulation
+          const playPromise = audio.play();
+          if (playPromise !== undefined) {
+            await playPromise;
+            console.log('MP3 played successfully (mobile fallback)');
           }
-        }, 500);
+        }
         
       } catch (error) {
         console.error('Error playing MP3:', error);
@@ -595,16 +583,6 @@ export default function CookingPage() {
         try {
           console.log('Trying beep sound fallback...');
           createBeepSound();
-          
-          setTimeout(() => {
-            try {
-              createBeepSound();
-              console.log('Second beep sound played successfully');
-            } catch (beepError) {
-              console.error('Second beep sound failed:', beepError);
-            }
-          }, 500);
-          
         } catch (fallbackError) {
           console.error('All audio methods failed:', fallbackError);
         }
