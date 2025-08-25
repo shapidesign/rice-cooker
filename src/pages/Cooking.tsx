@@ -514,38 +514,46 @@ export default function CookingPage() {
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     
-    // Play your MP3 with multiple fallbacks
+    // Play your MP3 with mobile-friendly approach
     const playMP3Sound = async () => {
       try {
         console.log('Attempting to play your MP3...');
-        const audio = new Audio(asianGongMusic);
         
-        // Set audio properties for better compatibility
-        audio.volume = 1.0;
-        audio.preload = 'auto';
+        // Create audio context for better mobile compatibility
+        const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+        const audioContext = new AudioContext();
         
-        // Add event listeners for debugging
-        audio.addEventListener('loadstart', () => console.log('MP3 loading started'));
-        audio.addEventListener('canplay', () => console.log('MP3 can play'));
-        audio.addEventListener('play', () => console.log('MP3 started playing'));
-        audio.addEventListener('ended', () => console.log('MP3 ended'));
-        audio.addEventListener('error', (e) => console.error('MP3 error:', e));
+        // Resume audio context if suspended (mobile requirement)
+        if (audioContext.state === 'suspended') {
+          await audioContext.resume();
+          console.log('Audio context resumed');
+        }
         
-        // Try to play the audio
-        await audio.play();
+        // Fetch and decode audio for better mobile support
+        const response = await fetch(asianGongMusic);
+        const arrayBuffer = await response.arrayBuffer();
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        
+        // Create audio source
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(audioContext.destination);
+        
+        // Play first sound
+        source.start(0);
         console.log('First MP3 played successfully');
         
-        // Play second MP3 after a short delay
+        // Play second sound after delay
         setTimeout(async () => {
           try {
-            const audio2 = new Audio(asianGongMusic);
-            audio2.volume = 1.0;
-            await audio2.play();
+            const source2 = audioContext.createBufferSource();
+            source2.buffer = audioBuffer;
+            source2.connect(audioContext.destination);
+            source2.start(0);
             console.log('Second MP3 played successfully');
           } catch (error) {
             console.error('Error playing second MP3:', error);
-            
-            // Fallback to beep for second sound
+            // Fallback to beep
             try {
               createBeepSound();
               console.log('Second beep sound played successfully');
@@ -556,24 +564,61 @@ export default function CookingPage() {
         }, 500);
         
       } catch (error) {
-        console.error('Error playing MP3:', error);
+        console.error('Error playing MP3 with AudioContext:', error);
         
-        // Fallback to beep sounds
+        // Fallback to standard Audio API
         try {
-          console.log('Trying beep sound fallback...');
-          createBeepSound();
+          console.log('Trying standard Audio API fallback...');
+          const audio = new Audio(asianGongMusic);
+          audio.volume = 1.0;
+          audio.preload = 'auto';
           
-          setTimeout(() => {
+          // Add event listeners for debugging
+          audio.addEventListener('loadstart', () => console.log('MP3 loading started'));
+          audio.addEventListener('canplay', () => console.log('MP3 can play'));
+          audio.addEventListener('play', () => console.log('MP3 started playing'));
+          audio.addEventListener('ended', () => console.log('MP3 ended'));
+          audio.addEventListener('error', (e) => {
+            console.error('MP3 error:', e);
+            console.error('Error details:', audio.error);
+          });
+          
+          await audio.play();
+          console.log('First MP3 played successfully (fallback)');
+          
+          // Play second MP3 after a short delay
+          setTimeout(async () => {
             try {
+              const audio2 = new Audio(asianGongMusic);
+              audio2.volume = 1.0;
+              await audio2.play();
+              console.log('Second MP3 played successfully (fallback)');
+            } catch (error) {
+              console.error('Error playing second MP3 (fallback):', error);
               createBeepSound();
-              console.log('Second beep sound played successfully');
-            } catch (beepError) {
-              console.error('Second beep sound failed:', beepError);
             }
           }, 500);
           
         } catch (fallbackError) {
-          console.error('All audio methods failed:', fallbackError);
+          console.error('Standard Audio API also failed:', fallbackError);
+          
+          // Final fallback to beep sounds
+          try {
+            console.log('Trying beep sound fallback...');
+            createBeepSound();
+            
+            setTimeout(() => {
+              try {
+                createBeepSound();
+                console.log('Second beep sound played successfully');
+              } catch (beepError) {
+                console.error('Second beep sound failed:', beepError);
+              }
+            }, 500);
+            
+          } catch (finalError) {
+            console.error('All audio methods failed:', finalError);
+          }
         }
       }
     };
