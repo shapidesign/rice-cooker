@@ -57,7 +57,7 @@ const createBeepSound = () => {
 };
 
 const riceOptions = [
-  { category: "jasmine", variety: "white", name: "Jasmine", time: 0.17, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
+  { category: "jasmine", variety: "white", name: "Jasmine", time: 12, waterRatio: 1.5, svg: jasmineSvg, svgPressed: jasmineTSvg },
   { category: "basmati", variety: "white", name: "Basmati", time: 15, waterRatio: 2.0, svg: basmatiSvg, svgPressed: basmatiTSvg },
   { category: "sushi", variety: "white", name: "Sushi", time: 20, waterRatio: 1.0, svg: sushiSvg, svgPressed: sushiTSvg },
   { category: "arborio", variety: "white", name: "Arborio", time: 20, waterRatio: 2.0, svg: arborioSvg, svgPressed: arborioTSvg },
@@ -532,7 +532,7 @@ export default function CookingPage() {
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     
-    // Mobile-friendly audio approach
+    // Mobile-friendly audio approach with user interaction requirement
     const playMP3Sound = async () => {
       try {
         console.log('Attempting to play your MP3...');
@@ -556,50 +556,53 @@ export default function CookingPage() {
           console.error('Error details:', audio.error);
         });
         
-        // Mobile-specific approach: try multiple methods
-        let played = false;
-        
-        // Method 1: Direct play
+        // Try to play audio
         try {
           await audio.play();
-          console.log('MP3 played successfully (direct)');
-          played = true;
+          console.log('MP3 played successfully');
         } catch (error) {
-          console.log('Direct play failed, trying method 2:', error);
-        }
-        
-        // Method 2: Promise-based play (mobile fallback)
-        if (!played) {
-          try {
-            const playPromise = audio.play();
-            if (playPromise !== undefined) {
-              await playPromise;
-              console.log('MP3 played successfully (promise method)');
-              played = true;
+          console.error('Audio play failed:', error);
+          
+          // Mobile fallback: Show a button for user to tap
+          const playButton = document.createElement('button');
+          playButton.textContent = '🔊 Tap to Play Sound';
+          playButton.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10000;
+            padding: 20px 40px;
+            font-size: 18px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+          `;
+          
+          playButton.onclick = async () => {
+            try {
+              await audio.play();
+              console.log('MP3 played successfully after user tap');
+              document.body.removeChild(playButton);
+            } catch (tapError) {
+              console.error('Audio still failed after user tap:', tapError);
+              createBeepSound();
+              document.body.removeChild(playButton);
             }
-          } catch (error) {
-            console.log('Promise play failed, trying method 3:', error);
-          }
-        }
-        
-        // Method 3: Delayed play (mobile autoplay workaround)
-        if (!played) {
-          try {
-            setTimeout(async () => {
-              try {
-                await audio.play();
-                console.log('MP3 played successfully (delayed method)');
-              } catch (error) {
-                console.log('Delayed play failed:', error);
-                // Final fallback to beep
-                createBeepSound();
-              }
-            }, 100);
-          } catch (error) {
-            console.log('Delayed play setup failed:', error);
-            // Final fallback to beep
-            createBeepSound();
-          }
+          };
+          
+          document.body.appendChild(playButton);
+          
+          // Auto-remove button after 5 seconds
+          setTimeout(() => {
+            if (document.body.contains(playButton)) {
+              document.body.removeChild(playButton);
+              createBeepSound();
+            }
+          }, 5000);
         }
         
       } catch (error) {
