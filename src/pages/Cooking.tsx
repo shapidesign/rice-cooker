@@ -407,7 +407,26 @@ export default function CookingPage() {
     }
     
     setHasInitialized(true);
-  }, [hasInitialized]);
+    
+    // Enable audio on any user interaction (mobile requirement)
+    const enableAudio = () => {
+      if (!audioEnabled) {
+        setAudioEnabled(true);
+        console.log('Audio enabled via global interaction');
+      }
+    };
+    
+    // Add event listeners for user interaction
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('touchstart', enableAudio);
+    document.addEventListener('touchend', enableAudio);
+    
+    return () => {
+      document.removeEventListener('click', enableAudio);
+      document.removeEventListener('touchstart', enableAudio);
+      document.removeEventListener('touchend', enableAudio);
+    };
+  }, [hasInitialized, audioEnabled]);
 
   // Handle page visibility changes (tab switching, app switching)
   useEffect(() => {
@@ -478,6 +497,11 @@ export default function CookingPage() {
     if (!audioEnabled) {
       setAudioEnabled(true);
       console.log('Audio enabled on first user interaction');
+      
+      // Test audio immediately on mobile
+      const testAudio = new Audio(asianGongMusic);
+      testAudio.volume = 0.1; // Very quiet test
+      testAudio.play().catch(e => console.log('Test audio failed (expected on mobile):', e));
     }
     
     setSelectedRice(riceOption);
@@ -525,15 +549,22 @@ export default function CookingPage() {
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     
-    // Simple mobile-friendly audio approach
+    // Mobile-friendly audio with user interaction requirement
     const playMP3Sound = async () => {
       try {
         console.log('Attempting to play your MP3...');
         
-        // Create audio element
+        // Check if we have user interaction
+        if (!audioEnabled) {
+          console.log('No user interaction detected, trying to enable audio...');
+          setAudioEnabled(true);
+        }
+        
+        // Create audio element with mobile-friendly settings
         const audio = new Audio(asianGongMusic);
         audio.volume = 1.0;
         audio.preload = 'auto';
+        audio.muted = false;
         
         // Add event listeners for debugging
         audio.addEventListener('loadstart', () => console.log('MP3 loading started'));
@@ -545,15 +576,31 @@ export default function CookingPage() {
           console.error('Error details:', audio.error);
         });
         
-        // Try to play the audio
-        await audio.play();
-        console.log('MP3 played successfully');
+        // Try to play the audio with user interaction check
+        try {
+          await audio.play();
+          console.log('MP3 played successfully');
+        } catch (playError) {
+          console.error('Play failed, trying alternative approach:', playError);
+          
+          // Alternative: Try with a small delay and user interaction
+          setTimeout(async () => {
+            try {
+              await audio.play();
+              console.log('MP3 played successfully (delayed)');
+            } catch (delayedError) {
+              console.error('Delayed play also failed:', delayedError);
+              throw delayedError;
+            }
+          }, 100);
+        }
         
         // Play second time after delay
         setTimeout(async () => {
           try {
             const audio2 = new Audio(asianGongMusic);
             audio2.volume = 1.0;
+            audio2.muted = false;
             await audio2.play();
             console.log('Second MP3 played successfully');
           } catch (error) {
