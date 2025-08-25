@@ -562,47 +562,8 @@ export default function CookingPage() {
           console.log('MP3 played successfully');
         } catch (error) {
           console.error('Audio play failed:', error);
-          
-          // Mobile fallback: Show a button for user to tap
-          const playButton = document.createElement('button');
-          playButton.textContent = '🔊 Tap to Play Sound';
-          playButton.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 10000;
-            padding: 20px 40px;
-            font-size: 18px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-          `;
-          
-          playButton.onclick = async () => {
-            try {
-              await audio.play();
-              console.log('MP3 played successfully after user tap');
-              document.body.removeChild(playButton);
-            } catch (tapError) {
-              console.error('Audio still failed after user tap:', tapError);
-              createBeepSound();
-              document.body.removeChild(playButton);
-            }
-          };
-          
-          document.body.appendChild(playButton);
-          
-          // Auto-remove button after 5 seconds
-          setTimeout(() => {
-            if (document.body.contains(playButton)) {
-              document.body.removeChild(playButton);
-              createBeepSound();
-            }
-          }, 5000);
+          // Fallback to beep sound
+          createBeepSound();
         }
         
       } catch (error) {
