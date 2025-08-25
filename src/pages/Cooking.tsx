@@ -37,9 +37,63 @@ import pattern8pxSvg from "../assets/8px.svg";
 // Audio file for completion sound
 const asianGongMusic = "/rice-cooker/asian-gong-music.mp3";
 
+// Global audio instance for mobile compatibility
+let globalAudio: HTMLAudioElement | null = null;
+let audioContext: AudioContext | null = null;
+let audioReady = false;
+
+// Initialize audio context and global audio on user interaction
+const initializeAudio = () => {
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  }
+  
+  if (!globalAudio) {
+    globalAudio = new Audio(asianGongMusic);
+    globalAudio.volume = 1.0;
+    globalAudio.preload = 'auto';
+    globalAudio.muted = false;
+    
+    // Add event listeners for debugging
+    globalAudio.addEventListener('loadstart', () => console.log('MP3 loading started'));
+    globalAudio.addEventListener('canplay', () => {
+      console.log('MP3 can play');
+      // Mark audio as ready when it can play
+      audioReady = true;
+    });
+    globalAudio.addEventListener('play', () => console.log('MP3 started playing'));
+    globalAudio.addEventListener('ended', () => console.log('MP3 ended'));
+    globalAudio.addEventListener('error', (e) => {
+      console.error('MP3 error:', e);
+      console.error('Error details:', globalAudio?.error);
+    });
+  }
+  
+  // For mobile devices, ensure audio context is unlocked
+  if (audioContext && audioContext.state === 'suspended') {
+    audioContext.resume().then(() => {
+      console.log('Audio context resumed successfully');
+      // Create a silent buffer to ensure audio context is fully unlocked
+      if (audioContext) {
+        const silentBuffer = audioContext.createBuffer(1, 1, 22050);
+        const source = audioContext.createBufferSource();
+        source.buffer = silentBuffer;
+        source.connect(audioContext.destination);
+        source.start(0);
+        source.stop(0);
+      }
+    }).catch(error => {
+      console.error('Failed to resume audio context:', error);
+    });
+  }
+};
+
 // Create a simple beep sound as fallback
 const createBeepSound = () => {
-  const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  if (!audioContext) {
+    audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+  }
+  
   const oscillator = audioContext.createOscillator();
   const gainNode = audioContext.createGain();
   
@@ -95,6 +149,7 @@ export default function CookingPage() {
   const [hasInitialized, setHasInitialized] = useState(false);
   const [audioReady, setAudioReady] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(false);
+  const [audioInitialized, setAudioInitialized] = useState(false);
 
 
   // 100 Cooking Tips
@@ -412,6 +467,17 @@ export default function CookingPage() {
     const enableAudio = () => {
       if (!audioEnabled) {
         setAudioEnabled(true);
+        initializeAudio(); // Initialize audio context and global audio
+        
+        // Try to unlock audio context immediately with a silent sound
+        if (audioContext && audioContext.state === 'suspended') {
+          audioContext.resume().then(() => {
+            console.log('Audio context resumed successfully');
+          }).catch(error => {
+            console.error('Failed to resume audio context:', error);
+          });
+        }
+        
         console.log('Audio enabled via global interaction');
       }
     };
@@ -489,6 +555,7 @@ export default function CookingPage() {
     // Enable audio for mobile compatibility
     if (!audioEnabled) {
       setAudioEnabled(true);
+      initializeAudio(); // Initialize audio context and global audio
       console.log('Audio enabled on first user interaction');
     }
     
@@ -503,6 +570,7 @@ export default function CookingPage() {
     
     // Enable audio for mobile compatibility
     setAudioEnabled(true);
+    initializeAudio(); // Initialize audio context and global audio
     
     // Request notification permission
     if ('Notification' in window && Notification.permission === 'default') {
@@ -532,37 +600,31 @@ export default function CookingPage() {
     setIsComplete(true);
     if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     
-    // Mobile-friendly audio approach with user interaction requirement
+    // Mobile-friendly audio approach using pre-initialized audio
     const playMP3Sound = async () => {
       try {
         console.log('Attempting to play your MP3...');
         
-        // Force audio enable for mobile
-        setAudioEnabled(true);
+        // Ensure audio is initialized
+        if (!globalAudio) {
+          initializeAudio();
+        }
         
-        // Create audio element with mobile-friendly settings
-        const audio = new Audio(asianGongMusic);
-        audio.volume = 1.0;
-        audio.preload = 'auto';
-        audio.muted = false;
-        
-        // Add event listeners for debugging
-        audio.addEventListener('loadstart', () => console.log('MP3 loading started'));
-        audio.addEventListener('canplay', () => console.log('MP3 can play'));
-        audio.addEventListener('play', () => console.log('MP3 started playing'));
-        audio.addEventListener('ended', () => console.log('MP3 ended'));
-        audio.addEventListener('error', (e) => {
-          console.error('MP3 error:', e);
-          console.error('Error details:', audio.error);
-        });
-        
-        // Try to play audio
-        try {
-          await audio.play();
-          console.log('MP3 played successfully');
-        } catch (error) {
-          console.error('Audio play failed:', error);
-          // Fallback to beep sound
+        // Try to play the global audio instance
+        if (globalAudio && audioReady) {
+          try {
+            // Reset audio to beginning and play
+            globalAudio.currentTime = 0;
+            await globalAudio.play();
+            console.log('MP3 played successfully');
+          } catch (error) {
+            console.error('Global audio play failed:', error);
+            // Fallback to beep sound
+            createBeepSound();
+          }
+        } else {
+          // Fallback to beep sound if global audio is not available or not ready
+          console.log('Global audio not ready, using beep fallback');
           createBeepSound();
         }
         
